@@ -46,9 +46,24 @@ module.exports.responseOk = (output, callback) => {
     const response = {
         statusCode: 200,
         headers: {
-            'Access-Control-Allow-Origin': '*', // Required for CORS support to work
+            'Access-Control-Allow-Origin': '*'//, // Required for CORS support to work
+            //'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
         },
         body: JSON.stringify(output),
     };
     callback(null, response);
 };
+/*
+module.exports.responseOptions = (callback) => {
+    const response = {
+        statusCode: 200,
+        headers: {
+            'Access-Control-Allow-Origin': '*', // Required for CORS support to work
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Max-Age': '86400'
+        }
+    };
+    callback(null, response);
+};
+*/

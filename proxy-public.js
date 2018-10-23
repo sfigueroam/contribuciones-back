@@ -5,18 +5,21 @@ const https = require('https');
 module.exports.handler = (event, context, callback) => {
 
 
+
+
     /*
     console.log('event.body->', JSON.stringify(event));
     console.log('context->', JSON.stringify(context));
      */
-
+    let method = event.httpMethod;
     let bucket = process.env.bucket;
     let bucketParse = process.env.bucketParse;
     let keyParse = process.env.keyParse;
-    let method = event.httpMethod;
     let queryParametes = event.queryStringParameters;
     let path  = queryParametes.path;
     let idParse = path.split('\/')[1];
+
+
 
     util.getConfigParse(bucketParse, keyParse, idParse,  function(err, clientId){
         obtenetToken(bucket, clientId)
