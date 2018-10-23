@@ -48,10 +48,7 @@ module.exports.responseOk = (output, callback) => {
         headers: {
             'Access-Control-Allow-Origin': '*', // Required for CORS support to work
         },
-        body: JSON.stringify({
-            message: 'Lambda TGR v0.1',
-            output: output
-        }),
+        body: JSON.stringify(output),
     };
     callback(null, response);
 };
