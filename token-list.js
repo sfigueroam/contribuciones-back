@@ -4,9 +4,6 @@ const https = require('https');
 
 module.exports.handler = (event, context, callback) => {
 
-
-
-
     util.getList(function (err, data) {
 
         let body = data;

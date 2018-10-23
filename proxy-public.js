@@ -5,43 +5,42 @@ const https = require('https');
 module.exports.handler = (event, context, callback) => {
 
 
-    let request = [];
-
+    /*
     console.log('event.body->', JSON.stringify(event));
     console.log('context->', JSON.stringify(context));
+     */
 
+    let bucket = process.env.bucket;
+    let bucketParse = process.env.bucketParse;
+    let keyParse = process.env.keyParse;
     let method = event.httpMethod;
-    request['method'] = method;
-    if(method === 'POST'){
-        let bodyEvent = JSON.parse(event.body);
-        request['clientId'] = bodyEvent.clientId;
-        request['path'] = bodyEvent.path;
-        if(bodyEvent.body !== undefined) request['body'] = bodyEvent.body;
-    }else if (method === 'GET'){
-        let queryParametes = JSON.parse(event.queryStringParameters);
-        request['clientId'] =queryParametes.clientId;
-        request['path'] = queryParametes.path;
-    }
+    let queryParametes = event.queryStringParameters;
+    let path  = queryParametes.path;
+    let idParse = path.split('\/')[1];
 
-    util.getTokenByKey(request['clientId'], function (err, data) {
-        obtenerDatos(data, request);
+    util.getConfigParse(bucketParse, keyParse, idParse,  function(err, clientId){
+        obtenetToken(bucket, clientId)
     });
 
-    let obtenerDatos = function (token, request) {
-        console.info('toke->', token);
+    let obtenetToken = function (bucket, clientId){
+        util.getTokenByKey(bucket, clientId, function (err, data) {
+            obtenerDatos(data);
+        });
+    };
+    let obtenerDatos = function (token) {
         let responseChunks = [];
         let options = {
             hostname: process.env.wsHostname,
             port: process.env.wsPort,
-            path: request['path'],
-            method: request['method'],
+            path: path,
+            method: method,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             }
         };
 
-        var req = https.request(options, (res) => {
+        let req = https.request(options, (res) => {
             res.on('data', (d) => {
                 responseChunks.push(d);
             });
@@ -51,8 +50,8 @@ module.exports.handler = (event, context, callback) => {
             util.responseOk(JSON.parse(responseChunks.join()), callback);
         });
 
-        if(request['body'] !== undefined) {
-            req.write(JSON.stringify(request['body']));
+        if(method === "POST" ) {
+            req.write(event.body);
         }
         req.end();
     }

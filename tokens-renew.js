@@ -12,6 +12,7 @@ module.exports.handler = (event, context, callback) => {
     let tokenScope = process.env.tokenScope.split(',');
     let grantType =  process.env.tokenGrantType;
     let clientSecret =  process.env.tokenClienteSecret;
+    let bucket = process.env.bucket;
     let count = 0;
 
     for(let i = 0; i < tokenScope.length; i++) {
@@ -50,7 +51,7 @@ module.exports.handler = (event, context, callback) => {
         req.on('close', () => {
             var params = {
                 Body: responseChunks.join('').toString(),
-                Bucket: "tgr-tokens-proxies-poc",
+                Bucket: bucket,
                 Key: clienteId + ".response"
             };
             s3.putObject(params, function (err, data) {

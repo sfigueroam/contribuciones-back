@@ -21,7 +21,7 @@ custom:
   currentStage: ${opt:stage, 'dev'}
   environments:
     dev:
-      bucket: tgr-tokens-proxies-poc
+      bucket: tgr-tokens-proxies-poc-dev
       region: us-east-1
       role: arn:aws:iam::080540609156:role/PatagoniaDevRole
       vpc:
@@ -38,7 +38,8 @@ custom:
       wsTierra:
         hostname: wstest.tesoreria.cl
         port: 443
-
+      bucketParse: tgr-parse-proxies-poc-dev
+      keyParse: parse.json
       #variables:tokensRenew:
 
     prod:
@@ -113,6 +114,17 @@ functions:
           path: proxy-private
           method: post
           cors: true
+      - http:
+          path: proxy-private
+          method: get
+          cors: true
+
+    environment:
+      wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
+      wsPort: ${self:custom.environments.${self:custom.currentStage}.wsTierra.port}
+      bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
+      bucketParse: ${self:custom.environments.${self:custom.currentStage}.bucketParse}
+      keyParse: ${self:custom.environments.${self:custom.currentStage}.keyParse}
 
   proxyPublic:
     handler: proxy-public.handler
@@ -129,15 +141,9 @@ functions:
     environment:
       wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
       wsPort: ${self:custom.environments.${self:custom.currentStage}.wsTierra.port}
-
-  tokenList:
-    handler: token-list.handler
-    events:
-      - http:
-          path: token-list
-          method: get
-          cors: true
-
+      bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
+      bucketParse: ${self:custom.environments.${self:custom.currentStage}.bucketParse}
+      keyParse: ${self:custom.environments.${self:custom.currentStage}.keyParse}
 
 
   tokensRenew:
@@ -183,6 +189,7 @@ functions:
       tokenClienteSecret: ${self:custom.environments.${self:custom.currentStage}.token.clienteSecret}
       tokenClienteId: ${self:custom.environments.${self:custom.currentStage}.token.clienteId}
       tokenScope: ${self:custom.environments.${self:custom.currentStage}.token.scope}
+      bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
 
 # you can add CloudFormation resource templates here
 #resources:

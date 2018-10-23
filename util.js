@@ -3,10 +3,10 @@
 const AWS = require('aws-sdk');
 let s3 = new AWS.S3();
 
-module.exports.getTokenByKey = (key, callback) => {
+module.exports.getTokenByKey = (bucket, key, callback) => {
 
-    var params = {
-        Bucket: "tgr-tokens-proxies-poc",
+    const params = {
+        Bucket: bucket,
         Key: key + ".response"
     };
 
@@ -23,20 +23,24 @@ module.exports.getTokenByKey = (key, callback) => {
 }
 
 
-module.exports.getList = (callback) => {
-    var params = {
-        Bucket: "tgr-tokens-proxies-poc"
+module.exports.getConfigParse = (bucket, key,id,  callback) =>{
+
+    const params = {
+        Bucket: bucket,
+        Key: key
     };
-    s3.listObjects(params, function(err, data) {
+
+    s3.getObject(params, function (err, data) {
         if (err) {
             console.log(err, err.stack);
             callback(err.stack, null);
         } else {
-            console.log('s3.listObjects', data);
-            callback(null, data);
+            let parse = JSON.parse(data.Body.toString('utf-8'));
+            callback(null,  parse[id]);
         }
     });
-}
+
+};
 
 module.exports.responseOk = (output, callback) => {
     const response = {
@@ -45,21 +49,8 @@ module.exports.responseOk = (output, callback) => {
             'Access-Control-Allow-Origin': '*', // Required for CORS support to work
         },
         body: JSON.stringify({
-            message: 'Go Serverless v1.1! Your function executed successfully!',
+            message: 'Lambda TGR v0.1',
             output: output
-        }),
-    };
-    callback(null, response);
-};
-
-module.exports.responseNOk = (output, callback) => {
-    const response = {
-        statusCode: 500,
-        headers: {
-            'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-        },
-        body: JSON.stringify({
-            message: 'error interno',
         }),
     };
     callback(null, response);
