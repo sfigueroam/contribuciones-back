@@ -6,7 +6,6 @@ module.exports.handler = (event, context, callback) => {
 
 
 
-
     /*
     console.log('event.body->', JSON.stringify(event));
     console.log('context->', JSON.stringify(context));
@@ -27,7 +26,7 @@ module.exports.handler = (event, context, callback) => {
 
     let obtenetToken = function (bucket, clientId){
         util.getTokenByKey(bucket, clientId, function (err, data) {
-            obtenerDatos(data);
+            obtenerDatos(data)
         });
     };
     let obtenerDatos = function (token) {
