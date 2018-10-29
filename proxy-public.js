@@ -29,7 +29,20 @@ module.exports.handler = (event, context, callback) => {
             obtenerDatos(data)
         });
     };
+
+
+
     let obtenerDatos = function (token) {
+
+        let response = {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*', // Required for CORS support to work
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+            },
+            body: null,
+        };
+
         let responseChunks = [];
         let options = {
             hostname: process.env.wsHostname,
@@ -45,11 +58,23 @@ module.exports.handler = (event, context, callback) => {
         let req = https.request(options, (res) => {
             res.on('data', (d) => {
                 responseChunks.push(d);
+                //console.log('responseChunks.join()->', responseChunks.join());
             });
         });
 
         req.on('close', () => {
-            util.responseOk(JSON.parse(responseChunks.join()), callback);
+            response.body =  responseChunks.join();
+            callback(null, response);
+        });
+
+        req.on('abort', () => {
+            response.statusCode = 500;
+            callback(response, null);
+        });
+
+        req.on('error', () => {
+            response.statusCode = 503;
+            callback(response, null);
         });
 
         if(method === "POST" ) {

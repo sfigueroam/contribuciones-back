@@ -46,8 +46,8 @@ module.exports.responseOk = (output, callback) => {
     const response = {
         statusCode: 200,
         headers: {
-            'Access-Control-Allow-Origin': '*'//, // Required for CORS support to work
-            //'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+            'Access-Control-Allow-Origin': '*', // Required for CORS support to work
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
         },
         body: JSON.stringify(output),
     };

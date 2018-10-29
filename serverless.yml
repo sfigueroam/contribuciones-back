@@ -119,7 +119,6 @@ functions:
           path: proxy-private
           method: get
           cors: true
-
     environment:
       wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
       wsPort: ${self:custom.environments.${self:custom.currentStage}.wsTierra.port}
