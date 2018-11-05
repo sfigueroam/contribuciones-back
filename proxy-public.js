@@ -63,7 +63,7 @@ module.exports.handler = (event, context, callback) => {
         });
 
         req.on('close', () => {
-            response.body =  responseChunks.join();
+            response.body =  responseChunks.join('');
             callback(null, response);
         });
 
