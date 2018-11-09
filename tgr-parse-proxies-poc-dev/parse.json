@@ -1,0 +1,10 @@
+{
+    "BienRaizWS": "OauthBienRaizRolinClient",
+    "ClienteBienRaizWS": "OauthBienRaizRolinClient",
+    "RecuperaDeudaROLRS": "OauthRecuperaDeudaRolClient",
+    "tgrClientesWsCorreo": "OauthClientesCorreoClient",
+    "tgrClientesWsCuentas": "OauthTgrClientesCuentasClient",
+    "tgrClientesWsDatosBasicos": "OauthClientesDatosBasicosClient",
+    "tgrClientesWsDireccion": "OauthTgrClientesDireccionClient",
+    "tgrClientesWsTelefono": "OauthClientesTelefonoClient"
+}

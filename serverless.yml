@@ -60,6 +60,7 @@ package:
     - test/*
     - package-lock.json
     - package.json
+    - tgr-parse-proxies-poc-dev/*
 
 
 # you can overwrite defaults here
