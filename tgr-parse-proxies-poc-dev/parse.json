@@ -6,5 +6,7 @@
     "tgrClientesWsCuentas": "OauthTgrClientesCuentasClient",
     "tgrClientesWsDatosBasicos": "OauthClientesDatosBasicosClient",
     "tgrClientesWsDireccion": "OauthTgrClientesDireccionClient",
-    "tgrClientesWsTelefono": "OauthClientesTelefonoClient"
+    "tgrClientesWsTelefono": "OauthClientesTelefonoClient",
+    "tgrSuscriptorWs": "OauthTgrSuscriptorWsClient",
+    "tgrTablasGralesWs": "OauthTablasGeneralesRsClient"
 }

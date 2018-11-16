@@ -33,8 +33,8 @@ custom:
       token:
         grantType: client_credentials
         clienteSecret: TGR.passw0rd
-        clienteId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient, OauthTgrClientesCuentasClient, OauthTgrClientesDireccionClient, OauthClientesTelefonoClient, OauthBienRaizRolinClient, OauthRecuperaDeudaRolClient
-        scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*
+        clienteId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient, OauthTgrClientesCuentasClient, OauthTgrClientesDireccionClient, OauthClientesTelefonoClient, OauthBienRaizRolinClient, OauthRecuperaDeudaRolClient, OauthTgrSuscriptorWsClient, OauthTablasGeneralesRsClient
+        scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*, /tgrSuscriptorWs/api/suscriptor*, /tgrTablasGralesWs/api/tablasgrales/*
       wsTierra:
         hostname: wstest.tesoreria.cl
         port: 443
@@ -157,7 +157,7 @@ functions:
 #    Check the event documentation for details
     events:
       - schedule: rate(4 minutes)
-        enabled: false
+        #enabled: false
 
 #      - http:
 #          path: users/create

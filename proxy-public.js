@@ -78,7 +78,11 @@ module.exports.handler = (event, context, callback) => {
         });
 
         if(method === "POST" ) {
-            req.write(event.body);
+            if (event.body !== undefined && event.body !== null) {
+                req.write(event.body);
+            }else{
+                req.write();
+            }
         }
         req.end();
     }
