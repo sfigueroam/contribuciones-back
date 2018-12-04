@@ -8,5 +8,6 @@
     "tgrClientesWsDireccion": "OauthTgrClientesDireccionClient",
     "tgrClientesWsTelefono": "OauthClientesTelefonoClient",
     "tgrSuscriptorWs": "OauthTgrSuscriptorWsClient",
-    "tgrTablasGralesWs": "OauthTablasGeneralesRsClient"
+    "tgrTablasGralesWs": "OauthTablasGeneralesRsClient",
+    "recaPagoConsultasWS": "OauthRcPagosConsultasTgrClient"
 }
