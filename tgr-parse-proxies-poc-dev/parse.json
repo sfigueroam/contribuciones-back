@@ -1,13 +1,46 @@
 {
-    "BienRaizWS": "OauthBienRaizRolinClient",
-    "ClienteBienRaizWS": "OauthBienRaizRolinClient",
-    "RecuperaDeudaROLRS": "OauthRecuperaDeudaRolClient",
-    "tgrClientesWsCorreo": "OauthClientesCorreoClient",
-    "tgrClientesWsCuentas": "OauthTgrClientesCuentasClient",
-    "tgrClientesWsDatosBasicos": "OauthClientesDatosBasicosClient",
-    "tgrClientesWsDireccion": "OauthTgrClientesDireccionClient",
-    "tgrClientesWsTelefono": "OauthClientesTelefonoClient",
-    "tgrSuscriptorWs": "OauthTgrSuscriptorWsClient",
-    "tgrTablasGralesWs": "OauthTablasGeneralesRsClient",
-    "recaPagoConsultasWS": "OauthRcPagosConsultasTgrClient"
+  "BienRaizWS": {
+    "clientId": "OauthBienRaizRolinClient",
+    "type": "public"
+  },
+  "ClienteBienRaizWS": {
+    "clientId": "OauthBienRaizRolinClient",
+    "type": "private"
+  },
+  "RecuperaDeudaROLRS": {
+    "clientId": "OauthRecuperaDeudaRolClient",
+    "type": "public"
+  },
+  "tgrClientesWsCorreo": {
+    "clientId": "OauthClientesCorreoClient",
+    "type": "private"
+  },
+  "tgrClientesWsCuentas": {
+    "clientId": "OauthTgrClientesCuentasClient",
+    "type": "private"
+  },
+  "tgrClientesWsDatosBasicos": {
+    "clientId": "OauthClientesDatosBasicosClient",
+    "type": "private"
+  },
+  "tgrClientesWsDireccion": {
+    "clientId": "OauthTgrClientesDireccionClient",
+    "type": "private"
+  },
+  "tgrClientesWsTelefono": {
+    "clientId": "OauthClientesTelefonoClient",
+    "type": "private"
+  },
+  "tgrSuscriptorWs": {
+    "clientId": "OauthTgrSuscriptorWsClient",
+    "type": "public"
+  },
+  "tgrTablasGralesWs": {
+    "clientId": "OauthTablasGeneralesRsClient",
+    "type": "private"
+  },
+  "recaPagoConsultasWS": {
+    "clientId": "OauthRcPagosConsultasTgrClient",
+    "type": "public"
+  }
 }
