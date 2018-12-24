@@ -10,7 +10,7 @@ module.exports.getTokenByKey = (bucket, key, callback) => {
         Key: key + ".response"
     };
 
-
+    console.log("Obteniendo Token de acceso: ", key);
     s3.getObject(params, function (err, data) {
         if (err) {
             console.log(err, err.stack);
@@ -29,7 +29,7 @@ module.exports.getConfigParse = (bucket, key,id,  callback) =>{
         Bucket: bucket,
         Key: key
     };
-
+    console.log('Obteniendo archivo de configuración');
     s3.getObject(params, function (err, data) {
         if (err) {
             console.log(err, err.stack);

@@ -34,6 +34,7 @@ module.exports.handler = (event, context, callback) => {
 
     let obtenerDatos = function (token) {
 
+        console.log('Obteniendo los datos');
         let response = {
             statusCode: 200,
             headers: {
@@ -55,6 +56,7 @@ module.exports.handler = (event, context, callback) => {
             }
         };
 
+        console.log("Realizando llamada request: ", options.hostname+options.path, options.method);
         let req = https.request(options, (res) => {
             res.on('data', (d) => {
                 responseChunks.push(d);
@@ -64,21 +66,25 @@ module.exports.handler = (event, context, callback) => {
 
         req.on('close', () => {
             response.body =  responseChunks.join('');
+            console.log('Response: ', response.body, response.statusCode);
             callback(null, response);
         });
 
         req.on('abort', () => {
             response.statusCode = 500;
+            console.error('Response: ', response.statusCode);
             callback(response, null);
         });
 
         req.on('error', () => {
             response.statusCode = 503;
+            console.error('Response: ', response.statusCode);
             callback(response, null);
         });
 
         if(method === "POST" ) {
             if (event.body !== undefined && event.body !== null) {
+                console.log("Body: ", event.body);
                 req.write(event.body);
             }else{
                 req.write();

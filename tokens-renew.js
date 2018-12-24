@@ -6,7 +6,7 @@ let s3 = new AWS.S3();
 
 module.exports.handler = (event, context, callback) => {
 
-    console.log('begin tokens renew process...');
+    console.log('Renovando token');
 
     let tokenClientId = process.env.tokenClienteId.split(',');
     let tokenScope = process.env.tokenScope.split(',');
@@ -18,6 +18,7 @@ module.exports.handler = (event, context, callback) => {
     for(let i = 0; i < tokenScope.length; i++) {
         let clienteId = tokenClientId[i].trim();
         let scope = tokenScope[i].trim();
+        console.log("Renovando token: ", clienteId);
         let options = {
             hostname: 'wstest.tesoreria.cl',
             port: 443,
@@ -38,9 +39,12 @@ module.exports.handler = (event, context, callback) => {
         options.headers['Content-Length'] = Buffer.byteLength(postData);
         let responseChunks = [];
 
+        console.log('Obtiendo token: ', options, data)
         let req = https.request(options, (res) => {
             res.on('data', (d) => {
+
                 responseChunks.push(d);
+                console.log('Token Obtenido', responseChunks.join('').toString())
             });
         });
 
@@ -54,11 +58,14 @@ module.exports.handler = (event, context, callback) => {
                 Bucket: bucket,
                 Key: clienteId + ".response"
             };
+
+            console.log('Actualizando s3,  parametros: ', params);
             s3.putObject(params, function (err, data) {
                 if (err)
                     console.log(err, err.stack); // an error occurred
                 else {
                     count++;
+                    console.log("Token actualizado con exito en s3, archivo: ", params.Key);
                     if(count == tokenScope.length) {
                         callback(null, responseChunks.join('').toString());
                     }
