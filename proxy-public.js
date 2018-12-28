@@ -20,6 +20,7 @@ module.exports.handler = (event, context, callback) => {
 
 
     util.getConfigParse(bucketParse, keyParse, idParse,  function(err, data){
+        console.log('Respuesta del parse', data);
         if(data.type === 'public') {
             obtenetToken(bucket, data.clientId)
         }else{

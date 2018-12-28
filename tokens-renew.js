@@ -42,7 +42,6 @@ module.exports.handler = (event, context, callback) => {
         console.log('Obtiendo token: ', options, data)
         let req = https.request(options, (res) => {
             res.on('data', (d) => {
-
                 responseChunks.push(d);
                 console.log('Token Obtenido', responseChunks.join('').toString())
             });

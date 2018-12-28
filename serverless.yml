@@ -82,12 +82,14 @@ functions:
           path: proxy-private
           method: post
           cors: true
-          #authorizer:
-          #  arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
+          authorizer:
+            arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
       - http:
           path: proxy-private
           method: get
           cors: true
+          authorizer:
+            arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
     environment:
       wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
       wsPort: ${self:custom.environments.${self:custom.currentStage}.wsTierra.port}

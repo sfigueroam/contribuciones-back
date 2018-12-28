@@ -1,5 +1,5 @@
 'use strict';
-const proxyPublic = require('./proxy-public');
+const util = require('./util');
 
 module.exports.handler = (event, context, callback) => {
 
