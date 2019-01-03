@@ -41,6 +41,9 @@ custom:
       bucketParse: tgr-parse-proxies-poc-dev
       keyParse: parse.json
       cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_YgUT9nLgh
+      #accessControlAllowOrigin: https://dl3ulmxmm6whg.cloudfront.net
+      accessControlAllowOrigin: '*'
+
       #variables:tokensRenew:
 
     prod:
@@ -96,6 +99,7 @@ functions:
       bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
       bucketParse: ${self:custom.environments.${self:custom.currentStage}.bucketParse}
       keyParse: ${self:custom.environments.${self:custom.currentStage}.keyParse}
+      accessControlAllowOrigin: ${self:custom.environments.${self:custom.currentStage}.accessControlAllowOrigin}
 
   proxyPublic:
     handler: proxy-public.handler
@@ -116,6 +120,7 @@ functions:
       bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
       bucketParse: ${self:custom.environments.${self:custom.currentStage}.bucketParse}
       keyParse: ${self:custom.environments.${self:custom.currentStage}.keyParse}
+      accessControlAllowOrigin: ${self:custom.environments.${self:custom.currentStage}.accessControlAllowOrigin}
 
 
   tokensRenew:

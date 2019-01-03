@@ -3,6 +3,22 @@ const https = require('https');
 const AWS = require('aws-sdk');
 let s3 = new AWS.S3();
 
+
+
+function obtenerHeaders (){
+    const accessControlAllowOrigin = process.env.accessControlAllowOrigin;
+    if (accessControlAllowOrigin) {
+        return {
+            'Access-Control-Allow-Origin': accessControlAllowOrigin, // Required for CORS support to work
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+        }
+    } else {
+        return undefined;
+    }
+
+}
+
+
 module.exports.getTokenByKey = (bucket, key, callback) => {
 
     const params = {
@@ -16,14 +32,14 @@ module.exports.getTokenByKey = (bucket, key, callback) => {
             console.log(err, err.stack);
             callback(err.stack, null);
         } else {
-            let token =  JSON.parse(data.Body.toString('utf-8')).access_token;
+            let token = JSON.parse(data.Body.toString('utf-8')).access_token;
             callback(null, token);
         }
     });
 }
 
 
-module.exports.getConfigParse = (bucket, key,id,  callback) =>{
+module.exports.getConfigParse = (bucket, key, id, callback) => {
 
     const params = {
         Bucket: bucket,
@@ -36,7 +52,7 @@ module.exports.getConfigParse = (bucket, key,id,  callback) =>{
             callback(err.stack, null);
         } else {
             let parse = JSON.parse(data.Body.toString('utf-8'));
-            callback(null,  parse[id]);
+            callback(null, parse[id]);
         }
     });
 
@@ -45,10 +61,7 @@ module.exports.getConfigParse = (bucket, key,id,  callback) =>{
 module.exports.responseOk = (output, callback) => {
     const response = {
         statusCode: 200,
-        headers: {
-            'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
-        },
+        headers: obtenerHeaders(),
         body: JSON.stringify(output),
     };
     callback(null, response);
@@ -58,15 +71,12 @@ module.exports.obtenerDatos = (token, event, callback) => {
 
     let method = event.httpMethod;
     let queryParametes = event.queryStringParameters;
-    let path  = queryParametes.path;
+    let path = queryParametes.path;
 
     console.log('Obteniendo los datos');
     let response = {
         statusCode: 200,
-        headers: {
-            'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
-        },
+        headers: obtenerHeaders(),
         body: null,
     };
 
@@ -82,7 +92,7 @@ module.exports.obtenerDatos = (token, event, callback) => {
         }
     };
 
-    console.log("Realizando llamada request: ", options.hostname+options.path, options.method);
+    console.log("Realizando llamada request: ", options.hostname + options.path, options.method);
     let req = https.request(options, (res) => {
         res.on('data', (d) => {
             responseChunks.push(d);
@@ -90,7 +100,7 @@ module.exports.obtenerDatos = (token, event, callback) => {
     });
 
     req.on('close', () => {
-        response.body =  responseChunks.join('');
+        response.body = responseChunks.join('');
         console.log('Response: ', response.body, response.statusCode);
         callback(null, response);
     });
@@ -107,11 +117,11 @@ module.exports.obtenerDatos = (token, event, callback) => {
         callback(response, null);
     });
 
-    if(method === "POST" ) {
+    if (method === "POST") {
         if (event.body !== undefined && event.body !== null) {
             console.log("Body: ", event.body);
             req.write(event.body);
-        }else{
+        } else {
             req.write();
         }
     }
@@ -131,3 +141,7 @@ module.exports.responseOptions = (callback) => {
     callback(null, response);
 };
 */
+
+
+
+
