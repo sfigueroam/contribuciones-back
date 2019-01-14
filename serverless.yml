@@ -32,18 +32,14 @@ custom:
           - subnet-060c756b0c118fa37
       token:
         grantType: client_credentials
-        clienteSecret: TGR.passw0rd
-        clienteId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient, OauthTgrClientesCuentasClient, OauthTgrClientesDireccionClient, OauthClientesTelefonoClient, OauthBienRaizRolinClient, OauthRecuperaDeudaRolClient, OauthTgrSuscriptorWsClient, OauthTablasGeneralesRsClient, OauthRcPagosConsultasTgrClient
-        scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*, /tgrSuscriptorWs/api/suscriptor*, /tgrTablasGralesWs/api/tablasgrales/*, /recaPagoConsultasWS/api/pago/consulta
+        clienteSecret: TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd
+        clienteId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient, OauthTgrClientesCuentasClient, OauthTgrClientesDireccionClient, OauthClientesTelefonoClient, OauthBienRaizRolinClient, OauthRecuperaDeudaRolClient
+        scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*
       wsTierra:
         hostname: wstest.tesoreria.cl
         port: 443
       bucketParse: tgr-parse-proxies-poc-dev
       keyParse: parse.json
-      cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_YgUT9nLgh
-      #accessControlAllowOrigin: https://dl3ulmxmm6whg.cloudfront.net
-      accessControlAllowOrigin: '*'
-
       #variables:tokensRenew:
 
     prod:
@@ -65,6 +61,41 @@ package:
     - package-lock.json
     - package.json
     - tgr-parse-proxies-poc-dev/*
+
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+# you can add statements to the Lambda function's IAM Role here
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:PutObject"
+#      Resource:
+#        Fn::Join:
+#          - ""
+#          - - "arn:aws:s3:::"
+#            - "Ref" : "ServerlessDeploymentBucket"
+#            - "/*"
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+# you can add packaging information here
+#package:
+#  include:
+#    - include-me.js
+#    - include-me-dir/**
+#  exclude:
+#    - exclude-me.js
+#    - exclude-me-dir/**
+
 resources:
   Resources:
     PnrStorage:
@@ -85,21 +116,16 @@ functions:
           path: proxy-private
           method: post
           cors: true
-          authorizer:
-            arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
       - http:
           path: proxy-private
           method: get
           cors: true
-          authorizer:
-            arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
     environment:
       wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
       wsPort: ${self:custom.environments.${self:custom.currentStage}.wsTierra.port}
       bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
       bucketParse: ${self:custom.environments.${self:custom.currentStage}.bucketParse}
       keyParse: ${self:custom.environments.${self:custom.currentStage}.keyParse}
-      accessControlAllowOrigin: ${self:custom.environments.${self:custom.currentStage}.accessControlAllowOrigin}
 
   proxyPublic:
     handler: proxy-public.handler
@@ -120,7 +146,6 @@ functions:
       bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
       bucketParse: ${self:custom.environments.${self:custom.currentStage}.bucketParse}
       keyParse: ${self:custom.environments.${self:custom.currentStage}.keyParse}
-      accessControlAllowOrigin: ${self:custom.environments.${self:custom.currentStage}.accessControlAllowOrigin}
 
 
   tokensRenew:
@@ -132,8 +157,34 @@ functions:
 #    Check the event documentation for details
     events:
       - schedule: rate(4 minutes)
-        #enabled: false
+        enabled: false
 
+#      - http:
+#          path: users/create
+#          method: get
+#      - s3: ${env:BUCKET}
+
+#      - sns: greeter-topic
+#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
+#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
+#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
+#      - iot:
+#          sql: "SELECT * FROM 'some_topic'"
+#      - cloudwatchEvent:
+#          event:
+#            source:
+#              - "aws.ec2"
+#            detail-type:
+#              - "EC2 Instance State-change Notification"
+#            detail:
+#              state:
+#                - pending
+#      - cloudwatchLog: '/aws/lambda/hello'
+#      - cognitoUserPool:
+#          pool: MyUserPool
+#          trigger: PreSignUp
+
+#    Define function environment variables here
     environment:
       foo: bar
       tokenGrantType: ${self:custom.environments.${self:custom.currentStage}.token.grantType}
@@ -142,4 +193,14 @@ functions:
       tokenScope: ${self:custom.environments.${self:custom.currentStage}.token.scope}
       bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
 
-
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
