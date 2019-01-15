@@ -11,7 +11,7 @@ module.exports.handler = (event, context, callback) => {
     let tokenClientId = process.env.tokenClienteId.split(',');
     let tokenScope = process.env.tokenScope.split(',');
     let grantType =  process.env.tokenGrantType;
-    let clientSecret =  process.env.tokenClienteSecret;
+    let clienteSecret =  process.env.tokenClienteSecret;
     let bucket = process.env.bucket;
     let count = 0;
 
