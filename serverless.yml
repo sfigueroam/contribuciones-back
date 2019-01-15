@@ -32,7 +32,7 @@ custom:
           - subnet-060c756b0c118fa37
       token:
         grantType: client_credentials
-        clienteSecret: TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd
+        clienteSecret: TGR.passw0rd
         clienteId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient, OauthTgrClientesCuentasClient, OauthTgrClientesDireccionClient, OauthClientesTelefonoClient, OauthBienRaizRolinClient, OauthRecuperaDeudaRolClient
         scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*
       wsTierra:

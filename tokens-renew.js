@@ -11,13 +11,12 @@ module.exports.handler = (event, context, callback) => {
     let tokenClientId = process.env.tokenClienteId.split(',');
     let tokenScope = process.env.tokenScope.split(',');
     let grantType =  process.env.tokenGrantType;
-    let tokenClientSecret =  process.env.tokenClienteSecret.split(',');
+    let clientSecret =  process.env.tokenClienteSecret;
     let bucket = process.env.bucket;
     let count = 0;
 
     for(let i = 0; i < tokenScope.length; i++) {
         let clienteId = tokenClientId[i].trim();
-        let clienteSecret = tokenClientSecret[i].trim();
         let scope = tokenScope[i].trim();
         let options = {
             hostname: 'wstest.tesoreria.cl',
