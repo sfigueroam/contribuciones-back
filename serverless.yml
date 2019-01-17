@@ -21,8 +21,8 @@ custom:
   currentStage: ${opt:stage, 'dev'}
   environments:
     dev:
+      region: us-east-1
       bucket: ${ssm:/contribuciones/dev/ws-tierra/bucket}
-      region: ${ssm:/contribuciones/dev/ws-tierra/region}
       role: ${ssm:/contribuciones/dev/ws-tierra/role}
       vpc:
         securityGroupIds:
