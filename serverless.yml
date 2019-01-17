@@ -33,7 +33,7 @@ custom:
       token:
         grantType: client_credentials
         clienteSecret: TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd
-        clienteId: ${ssm:/contribuciones/dev/ws-tierra/cliente-id} 
+        clienteId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient, OauthTgrClientesCuentasClient, OauthTgrClientesDireccionClient, OauthClientesTelefonoClient, OauthBienRaizRolinClient, OauthRecuperaDeudaRolClient, OauthTgrSuscriptorWsClient, OauthTablasGeneralesRsClient, OauthRcPagosConsultasTgrClient
         scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*, /tgrSuscriptorWs/api/suscriptor*, /tgrTablasGralesWs/api/tablasgrales/*, /recaPagoConsultasWS/api/pago/consulta
       wsTierra:
         hostname: ${ssm:/contribuciones/dev/ws-tierra/host}
