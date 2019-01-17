@@ -11,12 +11,13 @@ module.exports.handler = (event, context, callback) => {
     let tokenClientId = process.env.tokenClienteId.split(',');
     let tokenScope = process.env.tokenScope.split(',');
     let grantType =  process.env.tokenGrantType;
-    let clientSecret =  process.env.tokenClienteSecret;
+    let tokenClientSecret =  process.env.tokenClienteSecret.split(',');
     let bucket = process.env.bucket;
     let count = 0;
 
     for(let i = 0; i < tokenScope.length; i++) {
         let clienteId = tokenClientId[i].trim();
+        let clientSecret = tokenClientSecret[i].trim();
         let scope = tokenScope[i].trim();
         console.log("Renovando token: ", clienteId);
         let options = {
