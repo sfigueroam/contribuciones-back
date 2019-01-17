@@ -26,18 +26,18 @@ custom:
       role: arn:aws:iam::080540609156:role/PatagoniaDevRole
       vpc:
         securityGroupIds:
-          - sg-007f6a8ffb5d34924
+        - sg-007f6a8ffb5d34924
         subnetIds:
-          - subnet-0717e64b9df6a7701
-          - subnet-060c756b0c118fa37
+        - subnet-0717e64b9df6a7701
+        - subnet-060c756b0c118fa37
       token:
         grantType: client_credentials
         clienteSecret: TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd
-        clienteId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient, OauthTgrClientesCuentasClient, OauthTgrClientesDireccionClient, OauthClientesTelefonoClient, OauthBienRaizRolinClient, OauthRecuperaDeudaRolClient, OauthTgrSuscriptorWsClient, OauthTablasGeneralesRsClient, OauthRcPagosConsultasTgrClient
+        clienteId: ${ssm:/contribuciones/dev/ws-tierra/cliente-id}
         scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*, /tgrSuscriptorWs/api/suscriptor*, /tgrTablasGralesWs/api/tablasgrales/*, /recaPagoConsultasWS/api/pago/consulta
       wsTierra:
-        hostname: wstest.tesoreria.cl
-        port: 443
+        hostname: ${ssm:/contribuciones/dev/ws-tierra/host}
+        port: ${ssm:/contribuciones/dev/ws-tierra/port}
       bucketParse: tgr-parse-proxies-poc-dev
       keyParse: parse.json
       cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_YgUT9nLgh
@@ -55,16 +55,16 @@ provider:
   runtime: nodejs8.10
   region: ${self:custom.environments.${self:custom.currentStage}.region}
   stage: ${self:custom.currentStage}
-#  environment: ${self:custom.environments.${self:custom.currentStage}.variables}
+  #  environment: ${self:custom.environments.${self:custom.currentStage}.variables}
   role: ${self:custom.environments.${self:custom.currentStage}.role}
   vpc: ${self:custom.environments.${self:custom.currentStage}.vpc}
 
 package:
   exclude:
-    - test/*
-    - package-lock.json
-    - package.json
-    - tgr-parse-proxies-poc-dev/*
+  - test/*
+  - package-lock.json
+  - package.json
+  - tgr-parse-proxies-poc-dev/*
 resources:
   Resources:
     PnrStorage:
@@ -81,18 +81,18 @@ functions:
     handler: proxy-private.handler
     timeout: 30
     events:
-      - http:
-          path: proxy-private
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
-      - http:
-          path: proxy-private
-          method: get
-          cors: true
-          authorizer:
-            arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
+    - http:
+        path: proxy-private
+        method: post
+        cors: true
+        authorizer:
+          arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
+    - http:
+        path: proxy-private
+        method: get
+        cors: true
+        authorizer:
+          arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
     environment:
       wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
       wsPort: ${self:custom.environments.${self:custom.currentStage}.wsTierra.port}
@@ -105,14 +105,14 @@ functions:
     handler: proxy-public.handler
     timeout: 30
     events:
-      - http:
-          path: proxy-public
-          method: post
-          cors: true
-      - http:
-          path: proxy-public
-          method: get
-          cors: true
+    - http:
+        path: proxy-public
+        method: post
+        cors: true
+    - http:
+        path: proxy-public
+        method: get
+        cors: true
 
     environment:
       wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
@@ -127,12 +127,12 @@ functions:
     handler: tokens-renew.handler
 
 
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
+    #    The following are a few example events you can configure
+    #    NOTE: Please make sure to change your handler code to work with those events
+    #    Check the event documentation for details
     events:
-      - schedule: rate(4 minutes)
-        #enabled: false
+    - schedule: rate(4 minutes)
+      #enabled: false
 
     environment:
       foo: bar
@@ -141,5 +141,3 @@ functions:
       tokenClienteId: ${self:custom.environments.${self:custom.currentStage}.token.clienteId}
       tokenScope: ${self:custom.environments.${self:custom.currentStage}.token.scope}
       bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
-
-
