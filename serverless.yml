@@ -21,9 +21,9 @@ custom:
   currentStage: ${opt:stage, 'dev'}
   environments:
     dev:
-      bucket: tgr-tokens-proxies-poc-dev
-      region: us-east-1
-      role: arn:aws:iam::080540609156:role/PatagoniaDevRole
+      bucket: ${ssm:/contribuciones/dev/ws-tierra/bucket}
+      region: ${ssm:/contribuciones/dev/ws-tierra/region}
+      role: ${ssm:/contribuciones/dev/ws-tierra/role}
       vpc:
         securityGroupIds:
         - sg-007f6a8ffb5d34924
@@ -31,15 +31,15 @@ custom:
         - subnet-0717e64b9df6a7701
         - subnet-060c756b0c118fa37
       token:
-        grantType: client_credentials
-        clienteSecret: TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd
+        grantType: ${ssm:/contribuciones/dev/ws-tierra/grant-type}
+        clienteSecret: ${ssm:/contribuciones/dev/ws-tierra/cliente-secret} 
         clienteId: ${ssm:/contribuciones/dev/ws-tierra/cliente-id}
-        scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*, /tgrSuscriptorWs/api/suscriptor*, /tgrTablasGralesWs/api/tablasgrales/*, /recaPagoConsultasWS/api/pago/consulta
+        scope: ${ssm:/contribuciones/dev/ws-tierra/scope}
       wsTierra:
         hostname: ${ssm:/contribuciones/dev/ws-tierra/host}
         port: ${ssm:/contribuciones/dev/ws-tierra/port}
-      bucketParse: tgr-parse-proxies-poc-dev
-      keyParse: parse.json
+      bucketParse: ${ssm:/contribuciones/dev/ws-tierra/bucket-parse}
+      keyParse: ${ssm:/contribuciones/dev/ws-tierra/key-parse}
       cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_YgUT9nLgh
       #accessControlAllowOrigin: https://dl3ulmxmm6whg.cloudfront.net
       accessControlAllowOrigin: '*'
