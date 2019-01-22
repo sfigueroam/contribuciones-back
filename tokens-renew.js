@@ -21,8 +21,8 @@ module.exports.handler = (event, context, callback) => {
         let scope = tokenScope[i].trim();
         console.log("Renovando token: ", clienteId);
         let options = {
-            hostname: 'wstest.tesoreria.cl',
-            port: 443,
+            hostname: process.env.wsHostname,
+            port: process.env.wsPort,
             path: '/TokenRest/',
             method: 'POST',
             headers: {

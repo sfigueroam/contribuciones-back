@@ -1,63 +1,32 @@
-# Welcome to Serverless!
-#
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
-
-service: tgr-proxies-tierra # NOTE: update this with your service name
-
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
+service: tgr-contribuciones-back
 
 custom:
   currentStage: ${opt:stage, 'dev'}
   environments:
-    dev:
-      region: us-east-1
-      bucket: ${ssm:/contribuciones/dev/ws-tierra/bucket}
-      role: ${ssm:/contribuciones/dev/ws-tierra/role}
-      vpc:
-        securityGroupIds:
-        - sg-007f6a8ffb5d34924
-        subnetIds:
-        - subnet-0717e64b9df6a7701
-        - subnet-060c756b0c118fa37
-      token:
-        grantType: ${ssm:/contribuciones/dev/ws-tierra/grant-type}
-        clienteSecret: ${ssm:/contribuciones/dev/ws-tierra/cliente-secret} 
-        clienteId: ${ssm:/contribuciones/dev/ws-tierra/cliente-id}
-        scope: ${ssm:/contribuciones/dev/ws-tierra/scope}
-      wsTierra:
-        hostname: ${ssm:/contribuciones/dev/ws-tierra/host}
-        port: ${ssm:/contribuciones/dev/ws-tierra/port}
-      bucketParse: ${ssm:/contribuciones/dev/ws-tierra/bucket-parse}
-      keyParse: ${ssm:/contribuciones/dev/ws-tierra/key-parse}
-      cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_YgUT9nLgh
-      #accessControlAllowOrigin: https://dl3ulmxmm6whg.cloudfront.net
-      accessControlAllowOrigin: '*'
-
-      #variables:tokensRenew:
-
-    prod:
-      region: us-east-2
-#      variables:
+    region: us-east-1
+    bucket: ${opt:bucket-tokens}
+    role: ${opt:role-arn}
+    token:
+      grantType: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/grant-type}
+      clienteSecret: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/cliente-secret}
+      clienteId: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/cliente-id}
+      scope: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/scope}
+    wsTierra:
+      hostname: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/host}
+      port: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/port}
+    bucketParse: ${opt:bucket-parse}
+    keyParse: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/key-parse}
+    accessControlAllowOrigin: '*'
 
 provider:
   name: aws
   runtime: nodejs8.10
-  region: ${self:custom.environments.${self:custom.currentStage}.region}
+  region: ${self:custom.environments.region}
   stage: ${self:custom.currentStage}
-  #  environment: ${self:custom.environments.${self:custom.currentStage}.variables}
-  role: ${self:custom.environments.${self:custom.currentStage}.role}
-  vpc: ${self:custom.environments.${self:custom.currentStage}.vpc}
+  role: ${self:custom.environments.role}
+  apiGateway:
+    restApiId: ${opt:rest-api-id}
+    restApiRootResourceId: ${opt:rest-api-root-id}
 
 package:
   exclude:
@@ -65,15 +34,6 @@ package:
   - package-lock.json
   - package.json
   - tgr-parse-proxies-poc-dev/*
-resources:
-  Resources:
-    PnrStorage:
-      Type: AWS::S3::Bucket
-      #DeletionPolicy: Retain
-      #Condition: excludeBuckets
-      Properties:
-        BucketName: ${self:custom.environments.${self:custom.currentStage}.bucket}
-
 
 functions:
 
@@ -85,21 +45,17 @@ functions:
         path: proxy-private
         method: post
         cors: true
-        authorizer:
-          arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
     - http:
         path: proxy-private
         method: get
         cors: true
-        authorizer:
-          arn: ${self:custom.environments.${self:custom.currentStage}.cognito}
     environment:
-      wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
-      wsPort: ${self:custom.environments.${self:custom.currentStage}.wsTierra.port}
-      bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
-      bucketParse: ${self:custom.environments.${self:custom.currentStage}.bucketParse}
-      keyParse: ${self:custom.environments.${self:custom.currentStage}.keyParse}
-      accessControlAllowOrigin: ${self:custom.environments.${self:custom.currentStage}.accessControlAllowOrigin}
+      wsHostname: ${self:custom.environments.wsTierra.hostname}
+      wsPort: ${self:custom.environments.wsTierra.port}
+      bucket: ${self:custom.environments.bucket}
+      bucketParse: ${self:custom.environments.bucketParse}
+      keyParse: ${self:custom.environments.keyParse}
+      accessControlAllowOrigin: ${self:custom.environments.accessControlAllowOrigin}
 
   proxyPublic:
     handler: proxy-public.handler
@@ -115,29 +71,25 @@ functions:
         cors: true
 
     environment:
-      wsHostname: ${self:custom.environments.${self:custom.currentStage}.wsTierra.hostname}
-      wsPort: ${self:custom.environments.${self:custom.currentStage}.wsTierra.port}
-      bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
-      bucketParse: ${self:custom.environments.${self:custom.currentStage}.bucketParse}
-      keyParse: ${self:custom.environments.${self:custom.currentStage}.keyParse}
-      accessControlAllowOrigin: ${self:custom.environments.${self:custom.currentStage}.accessControlAllowOrigin}
-
+      wsHostname: ${self:custom.environments.wsTierra.hostname}
+      wsPort: ${self:custom.environments.wsTierra.port}
+      bucket: ${self:custom.environments.bucket}
+      bucketParse: ${self:custom.environments.bucketParse}
+      keyParse: ${self:custom.environments.keyParse}
+      accessControlAllowOrigin: ${self:custom.environments.accessControlAllowOrigin}
 
   tokensRenew:
     handler: tokens-renew.handler
 
-
-    #    The following are a few example events you can configure
-    #    NOTE: Please make sure to change your handler code to work with those events
-    #    Check the event documentation for details
     events:
     - schedule: rate(4 minutes)
-      #enabled: false
 
     environment:
       foo: bar
-      tokenGrantType: ${self:custom.environments.${self:custom.currentStage}.token.grantType}
-      tokenClienteSecret: ${self:custom.environments.${self:custom.currentStage}.token.clienteSecret}
-      tokenClienteId: ${self:custom.environments.${self:custom.currentStage}.token.clienteId}
-      tokenScope: ${self:custom.environments.${self:custom.currentStage}.token.scope}
-      bucket: ${self:custom.environments.${self:custom.currentStage}.bucket}
+      wsHostname: ${self:custom.environments.wsTierra.hostname}
+      wsPort: ${self:custom.environments.wsTierra.port}
+      tokenGrantType: ${self:custom.environments.token.grantType}
+      tokenClienteSecret: ${self:custom.environments.token.clienteSecret}
+      tokenClienteId: ${self:custom.environments.token.clienteId}
+      tokenScope: ${self:custom.environments.token.scope}
+      bucket: ${self:custom.environments.bucket}
