@@ -17,6 +17,7 @@ custom:
     bucketParse: ${opt:bucket-parse}
     keyParse: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/key-parse}
     accessControlAllowOrigin: '*'
+    cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_YgUT9nLgh
 
 provider:
   name: aws
@@ -45,10 +46,14 @@ functions:
         path: proxy-private
         method: post
         cors: true
+        authorizer:
+          arn: ${self:custom.environments.cognito}
     - http:
         path: proxy-private
         method: get
         cors: true
+        authorizer:
+          arn: ${self:custom.environments.cognito}
     environment:
       wsHostname: ${self:custom.environments.wsTierra.hostname}
       wsPort: ${self:custom.environments.wsTierra.port}
