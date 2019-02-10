@@ -42,7 +42,7 @@ functions:
       wsPort: ${self:custom.wsTierra.port}
       bucket: ${self:custom.bucket}
       bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
+      keyParse: parse.json
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
 
   proxyPublic:
