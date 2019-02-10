@@ -9,7 +9,7 @@ provider:
   stage: ${self:custom.stage}
   role: ${self:custom.role}
   apiGateway:
-    restApiId: ${self:custom.apId}
+    restApiId: ${self:custom.apiId}
     restApiRootResourceId: ${self:custom.apiRootId}
 
 package:

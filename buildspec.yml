@@ -28,7 +28,7 @@ phases:
         commands:
         # Builds serverles application.
         - echo Build started on `date`
-        - serverless deploy --stage ${BUILD_ENV} | tee deploy.out
+        - serverless deploy --stage ${BUILD_ENV}
 
     post_build:
         commands:
