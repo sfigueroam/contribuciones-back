@@ -1,33 +1,16 @@
 service: tgr-contribuciones-back
 
-custom:
-  currentStage: ${opt:stage, 'dev'}
-  environments:
-    region: us-east-1
-    bucket: ${opt:bucket-tokens}
-    role: ${opt:role-arn}
-    token:
-      grantType: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/grant-type}
-      clienteSecret: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/cliente-secret}
-      clienteId: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/cliente-id}
-      scope: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/scope}
-    wsTierra:
-      hostname: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/host}
-      port: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/port}
-    bucketParse: ${opt:bucket-parse}
-    keyParse: ${ssm:/tgr/${self:custom.currentStage}/contribuciones/ws-tierra/key-parse}
-    accessControlAllowOrigin: '*'
-    cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_YgUT9nLgh
+custom: ${file(./config.yml)}
 
 provider:
   name: aws
   runtime: nodejs8.10
-  region: ${self:custom.environments.region}
-  stage: ${self:custom.currentStage}
-  role: ${self:custom.environments.role}
+  region: ${self:custom.region}
+  stage: ${self:custom.stage}
+  role: ${self:custom.role}
   apiGateway:
-    restApiId: ${opt:rest-api-id}
-    restApiRootResourceId: ${opt:rest-api-root-id}
+    restApiId: ${self:custom.apId}
+    restApiRootResourceId: ${self:custom.apiRootId}
 
 package:
   exclude:
@@ -47,20 +30,20 @@ functions:
         method: post
         cors: true
         authorizer:
-          arn: ${self:custom.environments.cognito}
+          arn: ${self:custom.cognito}
     - http:
         path: proxy-private
         method: get
         cors: true
         authorizer:
-          arn: ${self:custom.environments.cognito}
+          arn: ${self:custom.cognito}
     environment:
-      wsHostname: ${self:custom.environments.wsTierra.hostname}
-      wsPort: ${self:custom.environments.wsTierra.port}
-      bucket: ${self:custom.environments.bucket}
-      bucketParse: ${self:custom.environments.bucketParse}
-      keyParse: ${self:custom.environments.keyParse}
-      accessControlAllowOrigin: ${self:custom.environments.accessControlAllowOrigin}
+      wsHostname: ${self:custom.wsTierra.hostname}
+      wsPort: ${self:custom.wsTierra.port}
+      bucket: ${self:custom.bucket}
+      bucketParse: ${self:custom.bucketParse}
+      keyParse: ${self:custom.keyParse}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
 
   proxyPublic:
     handler: proxy-public.handler
@@ -76,12 +59,12 @@ functions:
         cors: true
 
     environment:
-      wsHostname: ${self:custom.environments.wsTierra.hostname}
-      wsPort: ${self:custom.environments.wsTierra.port}
-      bucket: ${self:custom.environments.bucket}
-      bucketParse: ${self:custom.environments.bucketParse}
-      keyParse: ${self:custom.environments.keyParse}
-      accessControlAllowOrigin: ${self:custom.environments.accessControlAllowOrigin}
+      wsHostname: ${self:custom.wsTierra.hostname}
+      wsPort: ${self:custom.wsTierra.port}
+      bucket: ${self:custom.bucket}
+      bucketParse: ${self:custom.bucketParse}
+      keyParse: ${self:custom.keyParse}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
 
   tokensRenew:
     handler: tokens-renew.handler
@@ -91,10 +74,10 @@ functions:
 
     environment:
       foo: bar
-      wsHostname: ${self:custom.environments.wsTierra.hostname}
-      wsPort: ${self:custom.environments.wsTierra.port}
-      tokenGrantType: ${self:custom.environments.token.grantType}
-      tokenClienteSecret: ${self:custom.environments.token.clienteSecret}
-      tokenClienteId: ${self:custom.environments.token.clienteId}
-      tokenScope: ${self:custom.environments.token.scope}
-      bucket: ${self:custom.environments.bucket}
+      wsHostname: ${self:custom.wsTierra.hostname}
+      wsPort: ${self:custom.wsTierra.port}
+      tokenGrantType: ${self:custom.wsTierra.grantType}
+      tokenClienteSecret: ${self:custom.wsTierra.clienteSecret}
+      tokenClienteId: ${self:custom.wsTierra.clienteId}
+      tokenScope: ${self:custom.wsTierra.scope}
+      bucket: ${self:custom.bucket}

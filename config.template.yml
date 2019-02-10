@@ -1,0 +1,18 @@
+region: us-east-1
+stage: BUILD_ENV
+role: BUILD_ROLE_ARN
+bucket: BUILD_BUCKET_TOKENS
+bucketParse: BUILD_BUCKET_PARSE
+keyParse: BUILD_KEY_PARSE
+wsTierra:
+  grantType: BUILD_WST_GRANT_TYPE
+  clientSecret: BUILD_WST_CLIENT_SECRET
+  clientId: BUILD_WST_CLIENT_ID
+  scope: BUILD_WST_SCOPE
+  hostname: BUILD_WST_HOST
+  port: BUILD_WST_PORT
+accessControlAllowOrigin: BUILD_ACCESS_CONTROL_ORIGIN
+cognito: BUILD_COGNITO_POOL_ARN
+apiId: BUILD_API_ID
+apiRootId: BUILD_API_ROOT_ID
+

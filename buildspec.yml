@@ -1,21 +1,26 @@
 version: 0.2
-
-env:
-    variables:
-        APP_NAME: ""
-        BUILD_ENV : ""
-
 phases:
     install:
         commands:
-        
-        # Download and Install NodeJS 8.0     
-        - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-        - sudo apt-get install -y nodejs
-        - echo Installing source NPM dependencies...
-        # Install http drivers for node
+        - cp ${CODEBUILD_SRC_DIR}/config.sample.yml ${CODEBUILD_SRC_DIR}/config.yml
+
+        - sed -i "s;BUILD_ENV;${BUILD_ENV};g"                                       ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_LAMBDA_ROLE_ARN;${BUILD_LAMBDA_ROLE_ARN};g"                             ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_BUCKET_TOKENS;${BUILD_BUCKET_TOKENS};g"                   ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_BUCKET_PARSE;${BUILD_BUCKET_PARSE};g"                     ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_WST_GRANT_TYPE;${BUILD_WST_GRANT_TYPE};g"                 ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_WST_CLIENT_SECRET;${BUILD_WST_CLIENT_SECRET};g"           ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_WST_CLIENT_ID;${BUILD_WST_CLIENT_ID};g"                   ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_WST_SCOPE;${BUILD_WST_SCOPE};g"                           ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_WST_HOST;${BUILD_WST_HOST};g"                             ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_WST_PORT;${BUILD_WST_PORT};g"                             ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_COGNITO_POOL_ARN;${BUILD_COGNITO_POOL_ARN};g"             ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_API_ID;${BUILD_API_ID};g"             ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_API_ROOT_ID;${BUILD_API_ROOT_ID};g"             ${CODEBUILD_SRC_DIR}/config.yml
+
         - echo Installing serverless...
         - npm install -g serverless
+        - echo Installing source NPM dependencies...
         - npm install
 
 
