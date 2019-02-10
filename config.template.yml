@@ -11,7 +11,7 @@ wsTierra:
   scope: BUILD_WST_SCOPE
   hostname: BUILD_WST_HOST
   port: BUILD_WST_PORT
-accessControlAllowOrigin: BUILD_ACCESS_CONTROL_ORIGIN
+accessControlAllowOrigin: *
 cognito: BUILD_COGNITO_POOL_ARN
 apiId: BUILD_API_ID
 apiRootId: BUILD_API_ROOT_ID
