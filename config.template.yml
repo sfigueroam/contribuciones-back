@@ -1,6 +1,6 @@
 region: us-east-1
 stage: BUILD_ENV
-role: BUILD_ROLE_ARN
+role: BUILD_LAMBDA_ROLE_ARN
 bucket: BUILD_BUCKET_TOKENS
 bucketParse: BUILD_BUCKET_PARSE
 keyParse: BUILD_KEY_PARSE
