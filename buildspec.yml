@@ -26,13 +26,10 @@ phases:
 
     build:
         commands:
-        # Builds serverles application.
-        - echo Build started on `date`
         - serverless deploy --stage ${BUILD_ENV}
 
     post_build:
         commands:
-        - echo Build completed on `date`
 
 artifacts:
     files:
