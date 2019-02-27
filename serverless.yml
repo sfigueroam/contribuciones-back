@@ -11,6 +11,10 @@ provider:
   apiGateway:
     restApiId: ${self:custom.apiId}
     restApiRootResourceId: ${self:custom.apiRootId}
+  stackName: tgr-${self:custom.stage}-contribuciones
+  stackTags:
+    Application: contribuciones
+    Env: ${self:custom.stage}
 
 package:
   exclude:
