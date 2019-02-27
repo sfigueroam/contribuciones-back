@@ -26,6 +26,7 @@ package:
 functions:
 
   proxyPrivate:
+    name: tgr-${self:custom.stage}-contribuciones-proxyPrivate
     handler: proxy-private.handler
     timeout: 30
     events:
@@ -50,6 +51,7 @@ functions:
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
 
   proxyPublic:
+    name: tgr-${self:custom.stage}-contribuciones-proxyPublic
     handler: proxy-public.handler
     timeout: 30
     events:
