@@ -1,8 +1,8 @@
 region: us-east-1
 stage: dev
 role: arn:aws:iam::080540609156:role/tgr-dev-contribuciones-back-lambda
-bucket: tgr-dev-contribuciones-tokens
-bucketParse: tgr-dev-contribuciones-parse
+bucket: tgr-dev-contribuciones-tokens-pit
+bucketParse: tgr-dev-contribuciones-parse-pit
 keyParse: parse.json
 wsTierra:
   grantType: client_credentials
@@ -19,4 +19,4 @@ apiHostnameVerifyCaptcha: www.google.com
 apipathVerifyCaptcha: /recaptcha/api/siteverify
 idAppRecaptcha2: 6LcObZUUAAAAAJ371RFuzWx-Q9ebINm5VVUlAb5Y
 idAppRecaptcha3: 6Lc2dpUUAAAAACdFyhwIBgpNo8Y735oQWIBNU0Vj
-score: 1.0
+score: 0.5

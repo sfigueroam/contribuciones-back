@@ -66,7 +66,6 @@ module.exports.responseOk = (output, callback) => {
 };
 
 
-
 module.exports.validaToken = (hostname, path, token, idApp, callback) =>{
 
     let body = 'secret=' + idApp  +
@@ -110,8 +109,6 @@ module.exports.validaToken = (hostname, path, token, idApp, callback) =>{
         console.error('Response: ', response.statusCode);
         callback(response, null);
     });
-
-
     req.write(body);
     req.end();
 };
