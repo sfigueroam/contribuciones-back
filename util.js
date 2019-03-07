@@ -3,8 +3,6 @@ const https = require('https');
 const AWS = require('aws-sdk');
 let s3 = new AWS.S3();
 
-
-
 function obtenerHeaders (){
     const accessControlAllowOrigin = process.env.accessControlAllowOrigin;
     if (accessControlAllowOrigin) {
@@ -66,6 +64,59 @@ module.exports.responseOk = (output, callback) => {
     };
     callback(null, response);
 };
+
+
+
+module.exports.validaToken = (hostname, path, token, idApp, callback) =>{
+
+    let body = 'secret=' + idApp  +
+        '&response=' + token;
+
+    let response = {
+        statusCode: 200,
+        headers: obtenerHeaders(),
+        body: null,
+    };
+
+    let options = {
+        hostname: hostname,
+        port: '443',
+        path: path,
+        method: 'POST',
+        headers: {"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"}
+    };
+
+    let responseChunks = [];
+    let req = https.request(options, (res) => {
+        res.on('data', (d) => {
+            responseChunks.push(d);
+        });
+    });
+
+    req.on('close', () => {
+        response.body = responseChunks.join('');
+        console.log('Response: ', response.body, response.statusCode);
+        callback(null, response);
+    });
+
+    req.on('abort', () => {
+        response.statusCode = 500;
+        console.error('Response: ', response.statusCode);
+        callback(response, null);
+    });
+
+    req.on('error', () => {
+        response.statusCode = 503;
+        console.error('Response: ', response.statusCode);
+        callback(response, null);
+    });
+
+
+    req.write(body);
+    req.end();
+};
+
+
 
 module.exports.obtenerDatos = (token, event, callback) => {
 
