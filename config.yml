@@ -4,13 +4,14 @@ role: arn:aws:iam::080540609156:role/tgr-dev-contribuciones-back-lambda
 bucket: tgr-dev-contribuciones-tokens-pit
 bucketParse: tgr-dev-contribuciones-parse-pit
 keyParse: parse.json
-wsTierra:
+wsTierra: #api
   grantType: client_credentials
-  clientSecret: TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd, TGR.passw0rd
-  clientId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient, OauthTgrClientesCuentasClient, OauthTgrClientesDireccionClient, OauthClientesTelefonoClient, OauthBienRaizRolinClient, OauthRecuperaDeudaRolClient, OauthTgrSuscriptorWsClient, OauthTablasGeneralesRsClient, OauthRcPagosConsultasTgrClient
+  clientSecret: TGR.passw0rd, TGR.passw0rd
+  clientId: OauthClientesDatosBasicosClient, OauthClientesCorreoClient
   scope: /tgrClientesWsDatosBasicos/api/datosbasicosws*, /tgrClientesWsCorreo/api/correosws*, /tgrClientesWsCuentas/api/cuentaws/*, /tgrClientesWsDireccion/api/direccionws/*, /tgrClientesWsTelefono/api/telefonows*, /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*, /RecuperaDeudaROLRS/api/bienraiz/*, /tgrSuscriptorWs/api/suscriptor*, /tgrTablasGralesWs/api/tablasgrales/*, /recaPagoConsultasWS/api/pago/consulta
   hostname: wstest.tesoreria.cl
   port: 443
+
 accessControlAllowOrigin: "*"
 cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_dD7fg7AJB
 apiId: 9l70yekz53
@@ -19,4 +20,4 @@ apiHostnameVerifyCaptcha: www.google.com
 apipathVerifyCaptcha: /recaptcha/api/siteverify
 idAppRecaptcha2: 6LcObZUUAAAAAJ371RFuzWx-Q9ebINm5VVUlAb5Y
 idAppRecaptcha3: 6Lc2dpUUAAAAACdFyhwIBgpNo8Y735oQWIBNU0Vj
-score: 0.5
+threshold: 0.5

@@ -19,6 +19,7 @@ module.exports.handler = (event, context, callback) => {
     let path  = queryParametes.path;
     let idParse = path.split('\/')[1];
 
+    console.log(event.pathParameters);
 
 
     util.getConfigParse(bucketParse, keyParse, idParse,  function(err, data){
