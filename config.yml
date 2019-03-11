@@ -4,7 +4,7 @@ role: arn:aws:iam::080540609156:role/tgr-dev-contribuciones-back-lambda
 bucket: tgr-dev-contribuciones-tokens-pit
 bucketParse: tgr-dev-contribuciones-parse-pit
 keyParse: parse.json
-api: #awsTierra #Diferencia
+api: #Diferencia
   grantType: client_credentials
   hostname: wstest.tesoreria.cl
   port: 443
