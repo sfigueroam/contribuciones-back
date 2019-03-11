@@ -115,11 +115,12 @@ module.exports.validaToken = (hostname, path, token, idApp, callback) =>{
 
 
 
-module.exports.obtenerDatos = (token, event, callback) => {
+module.exports.obtenerDatos = (token, event,path, callback) => {
 
     let method = event.httpMethod;
-    let queryParametes = event.queryStringParameters;
-    let path = queryParametes.path;
+
+    console.log(token);
+    console.log(method);
 
     console.log('Obteniendo los datos');
     let response = {

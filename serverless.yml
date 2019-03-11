@@ -7,7 +7,7 @@ provider:
   runtime: nodejs8.10
   region: ${self:custom.region}
   stage: ${self:custom.stage}
-    #role: ${self:custom.role}
+  #role: arn:aws:iam::026430579524:role/lambda-tgr-pit
     #  apiGateway:
     #    restApiId: ${self:custom.apiId}
   #  restApiRootResourceId: ${self:custom.apiRootId}
@@ -25,1087 +25,33 @@ package:
 
 functions:
 
-  proxyPrivate:
-    name: tgr-${self:custom.stage}-contribuciones-proxyPrivate
-    handler: proxy-private.handler
-    timeout: 30
-    events:
-    - http:
-        path: proxy-private/{type}
-        method: post
-        cors: true
-        authorizer:
-          arn: ${self:custom.cognito}
-        request:
-          parameters:
-            paths:
-              type: true
-    - http:
-        path: proxy-private/{type}
-        method: get
-        cors: true
-        authorizer:
-          arn: ${self:custom.cognito}
-        request:
-          parameters:
-            paths:
-              type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-
-  proxyPublic:
-    name: tgr-${self:custom.stage}-contribuciones-proxyPublic
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: proxy-public
-          method: post
-          cors: true
-      - http:
-          path: proxy-public
-          method: get
-          cors: true
-
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-
-#Contribuciones
-
-  obtenerCertificado:
-    name: tgr-${self:custom.stage}-contribuciones-obtenerCertificado
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-    - http:
-        path: tgrSuscriptorWs/api/suscriptor/certificado/obtener
-        method: post
-        cors: true
-
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: contribcion
-      type: private
-
-  consultaPago:
-    name: tgr-${self:custom.stage}-contribuciones-consultaPago
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-    - http:
-        path: recaPagoConsultasWS/api/pago/consulta
-        method: post
-        cors: true
-
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: contribcion
-      type: private
-
-  obtenerAsociado:
-    name: tgr-${self:custom.stage}-contribuciones-obtenerAsociado
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-    - http:
-        path: asociado/obtener
-        method: get
-        cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: contribcion
-      type: private
-
-  obtenerNoAsociado:
-    name: tgr-${self:custom.stage}-contribuciones-obtenerNoAsociado
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-    - http:
-        path: noasociado/obtener
-        method: get
-        cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: contribcion
-      type: private
-
-  asociarBienRaiz:
-    name: tgr-${self:custom.stage}-contribuciones-asociarBienRaiz
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-    - http:
-        path: bienraiz/asociar
-        method: post
-        cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: contribcion
-      type: private
-
-  deasociarBienRaiz:
-    name: tgr-${self:custom.stage}-contribuciones-deasociarBienRaiz
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-    - http:
-        path: bienraiz/desasociar
-        method: post
-        cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: contribcion
-      type: private
-
-  obtenerDeudaRol:
-    name: tgr-${self:custom.stage}-contribuciones-obtenerDeudaRol
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-    - http:
-        path: deuda/rol/obtiene
-        method: post
-        cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: contribcion
-      type: private
-
-  obtenerRolin:
-    name: tgr-${self:custom.stage}-contribuciones-obtenerRolin
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-    - http:
-        path: bienraiz/obtener/rolin
-        method: post
-        cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: contribcion
-      type: private
-
-  # Cuenta Usuario
-
-  claveIvrCrear:
-    name: tgr-${self:custom.stage}-contribuciones-claveIvrCrear
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: clave/ivr/crear
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  claveIvrModificar:
-    name: tgr-${self:custom.stage}-contribuciones-claveIvrModificar
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: clave/ivr/modificar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  claveWebCrear:
-    name: tgr-${self:custom.stage}-contribuciones-claveWebCrear
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: clave/web/crear
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  claveWebModificar:
-    name: tgr-${self:custom.stage}-contribuciones-claveWebModificar
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: clave/web/modificar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  claveWebModificarViaCorreo:
-    name: tgr-${self:custom.stage}-contribuciones-claveWebModificarViaCorreo
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/cambiar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  correoActualizar:
-    name: tgr-${self:custom.stage}-contribuciones-correoActualizar
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: correo/actualizar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  cuentaCrear:
-    name: tgr-${self:custom.stage}-contribuciones-cuentaCrear
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: cuenta/crear
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  datosBasicos:
-    name: tgr-${self:custom.stage}-contribuciones-datosBasicos
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: info/buscarPorCliente
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  datosFull:
-    name: tgr-${self:custom.stage}-contribuciones-datosFull
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: cliente/full
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  direccionActualizar:
-    name: tgr-${self:custom.stage}-contribuciones-direccionActualizar
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: direccion/actualizar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  direccionCrear:
-    name: tgr-${self:custom.stage}-contribuciones-direccionCrear
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: direccion/crear
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: private
-
-  foliosObtener:
-    name: tgr-${self:custom.stage}-contribuciones-foliosObtener
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: folios/obtener
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  foliosValidar:
-    name: tgr-${self:custom.stage}-contribuciones-foliosValidar
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: folios/validar
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  generalComunas:
-    name: tgr-${self:custom.stage}-contribuciones-generalComunas
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: comunas/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  generalCuentaBancos:
-    name: tgr-${self:custom.stage}-contribuciones-generalCuentaBancos
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: bancos/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  generalCuentaTipos:
-    name: tgr-${self:custom.stage}-contribuciones-generalCuentaTipos
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: cuenta/tipo/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  generalCalleTipos:
-    name: tgr-${self:custom.stage}-contribuciones-generalCalleTipos
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: calle/tipo/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  generalCorreoTipos:
-    name: tgr-${self:custom.stage}-contribuciones-generalCorreoTipos
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: correo/tipo/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  generalPaises:
-    name: tgr-${self:custom.stage}-contribuciones-generalPaises
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: paises/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  generalTelefonoCodPais:
-    name: tgr-${self:custom.stage}-contribuciones-generalTelefonoCodPais
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: codtelpais/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  generalTelefonoTipos:
-    name: tgr-${self:custom.stage}-contribuciones-generalTelefonoTipos
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: telefono/tipo/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  generalTelefonoUsos:
-    name: tgr-${self:custom.stage}-contribuciones-generalTelefonoUsos
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: usotelefono/tipo/listar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  recuperarGenerarToken:
-    name: tgr-${self:custom.stage}-contribuciones-recuperarGenerarToken
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/token
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  recuperarGenerarSolicitud:
-    name: tgr-${self:custom.stage}-contribuciones-recuperarGenerarSolicitud
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/solicitud
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  recuperarEnviarCorreo:
-    name: tgr-${self:custom.stage}-contribuciones-recuperarEnviarCorreo
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/enviacorreo
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  recuperarValidarTiempoExpiracion:
-    name: tgr-${self:custom.stage}-contribuciones-recuperarValidarTiempoExpiracion
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/validatiempo
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  recuperarCambiarClave:
-    name: tgr-${self:custom.stage}-contribuciones-recuperarCambiarClave
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/cambiar
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  registroValidar:
-    name: tgr-${self:custom.stage}-contribuciones-registroValidar
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: nuevo/validar
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  registroValidar2:
-    name: tgr-${self:custom.stage}-contribuciones-registroValidar2
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: validar
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  registroCrearClave:
-    name: tgr-${self:custom.stage}-contribuciones-registroCrearClave
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: clave/web/crear
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  registroGenerarToken:
-    name: tgr-${self:custom.stage}-contribuciones-registroGenerarToken
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/token
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  registroIngresarSolicitud:
-    name: tgr-${self:custom.stage}-contribuciones-registroGenerarToken
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/solicitud
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  registroEnviarCorreo:
-    name: tgr-${self:custom.stage}-contribuciones-registroEnviarCorreo
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/enviacorreo
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  registroValidarTiempoExpiracion:
-    name: tgr-${self:custom.stage}-contribuciones-registroValidarTiempoExpiracion
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: recuperar/clave/validatiempo
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  registroActivar:
-    name: tgr-${self:custom.stage}-contribuciones-registroActivar
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: activar
-          method: post
-          cors: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: publica
-
-  telefonoActualizar:
-    name: tgr-${self:custom.stage}-contribuciones-telefonoActualizar
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: telefono/actualizar
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-  telefonoCrear:
-    name: tgr-${self:custom.stage}-contribuciones-telefonoCrear
-    handler: proxy-public.handler
-    timeout: 30
-    events:
-      - http:
-          path: telefono/crear
-          method: post
-          cors: true
-          authorizer:
-            arn: ${self:custom.cognito}
-            request:
-              parameters:
-                paths:
-                  type: true
-    environment:
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      bucket: ${self:custom.bucket}
-      bucketParse: ${self:custom.bucketParse}
-      keyParse: ${self:custom.keyParse}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      app: cuenta
-      type: privada
-
-
-
-
-
   tokensRenew:
     name: tgr-${self:custom.stage}-contribuciones-tokensRenew
     handler: tokens-renew.handler
-
     events:
-    - schedule: rate(4 minutes)
-
+      - schedule: rate(4 minutes)
     environment:
       foo: bar
-      wsHostname: ${self:custom.wsTierra.hostname}
-      wsPort: ${self:custom.wsTierra.port}
-      tokenGrantType: ${self:custom.wsTierra.grantType}
-      tokenClienteSecret: ${self:custom.wsTierra.clientSecret}
-      tokenClienteId: ${self:custom.wsTierra.clientId}
-      tokenScope: ${self:custom.wsTierra.scope}
+      wsHostname: ${self:custom.api.hostname}
+      wsPort: ${self:custom.api.port}
+      tokenGrantType: ${self:custom.api.grantType}
+      contTokenClienteSecret: ${self:custom.api.contribucion.clientSecret}
+      contTokenClienteId: ${self:custom.api.contribucion.clientId}
+      contTokenScope: ${self:custom.api.contribucion.scope}
+      cuentTokenClienteSecret: ${self:custom.api.cuenta.clientSecret}
+      cuentTokenClienteId: ${self:custom.api.cuenta.clientId}
+      cuentTokenScope: ${self:custom.api.cuenta.scope}
       bucket: ${self:custom.bucket}
-
-
-
 
   api_captcha2:
     name: tgr-${self:custom.stage}-contribuciones-captcha2
     handler: api-captcha.handler
     timeout: 30
     events:
-    - http:
-        path: captcha/v2
-        method: post
-        cors: true
+      - http:
+          path: captcha/v2
+          method: post
+          cors: true
     environment:
       apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
       apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
@@ -1128,13 +74,85 @@ functions:
       idApp: ${self:custom.idAppRecaptcha3}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
       threshold: ${self:custom.threshold}
-  mutex:
-    name: tgr-${self:custom.stage}-contribuciones-mutex
-    handler: api-mutex.handler
+
+  public:
+    name: tgr-${self:custom.stage}-contribuciones-public
+    handler: api.handler
     timeout: 30
     events:
       - http:
-          path: mutex
+          path: api/tgrSuscriptorWs/api/suscriptor/certificado/obtener
+          method: post
+          cors: true
+
+      - http:
+          path: api/RecuperaDeudaROLRS/api/bienraiz/deuda/rol/obtiene
+          method: post
+          cors: true
+
+      - http:
+          path: api/BienRaizWS/api/BienRaiz/bienraiz/obtener/rolin
+          method: post
+          cors: true
+
+    environment:
+      wsHostname: ${se  lf:custom.api.hostname}
+      wsPort: ${self:custom.api.port}
+      bucket: ${self:custom.bucket}
+      bucketParse: ${self:custom.bucketParse}
+      keyParse: ${self:custom.keyParse}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+      clienteId: ${self:custom.api.contribucion.clientId}
+
+  private:
+    name: tgr-${self:custom.stage}-contribuciones-private
+    handler: api.handler
+    timeout: 30
+    events:
+      - http:
+          path: api/recaPagoConsultasWS/api/pago/consulta
+          method: post
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+      - http:
+          path: api/ClienteBienRaizWS/api/BienRaiz/asociado/obtener/{rut}
           method: get
           cors: true
-    
+          authorizer:
+            arn: ${self:custom.cognito}
+          request:
+            parameters:
+              paths:
+                rut: true
+      - http:
+          path: api/ClienteBienRaizWS/api/BienRaiz/noasociado/obtener/{rut}
+          method: get
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+          request:
+            parameters:
+              paths:
+                rut: true
+      - http:
+          path: api/ClienteBienRaizWS/api/BienRaiz/bienraiz/asociar
+          method: post
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+
+      - http:
+          path: api/ClienteBienRaizWS/api/BienRaiz/bienraiz/desasociar
+          method: post
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+    environment:
+      wsHostname: ${self:custom.api.hostname}
+      wsPort: ${self:custom.api.port}
+      bucket: ${self:custom.bucket}
+      bucketParse: ${self:custom.bucketParse}
+      keyParse: ${self:custom.keyParse}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+      clienteId: ${self:custom.api.contribucion.clientId}

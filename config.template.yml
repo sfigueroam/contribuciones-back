@@ -4,15 +4,25 @@ role: BUILD_LAMBDA_ROLE_ARN
 bucket: BUILD_BUCKET_TOKENS
 bucketParse: BUILD_BUCKET_PARSE
 keyParse: parse.json
-wsTierra:
+api:
   grantType: BUILD_WST_GRANT_TYPE
-  clientSecret: BUILD_WST_CLIENT_SECRET
-  clientId: BUILD_WST_CLIENT_ID
-  scope: BUILD_WST_SCOPE
   hostname: BUILD_WST_HOST
   port: BUILD_WST_PORT
+  contribucion: #Diferencia
+    clientSecret: TGR.C0ntr!bUC10n3s
+    clientId: OauthTrContribucionesRsClient
+    scope: /LiquidacionDeudaRs/api/bienraiz/* /PagoTotalRS/api/bienraiz* /tgrClientesWsCorreo/api/correosws* /tgrClientesWsCuentas/api/cuentaws/* /tgrClientesWsDatosBasicos/api/datosbasicosws* /tgrClientesWsDireccion/api/direccionws/* /tgrClientesWsTelefono/api/telefonows* /RecuperaDeudaROLRS/api/bienraiz/* /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*
+  cuenta: #Diferencia
+    clientSecret: TGR.Cu2t!
+    clientId: OauthTrCuentaTgrRsClient
+    scope: /tgrSuscriptorWs/api/suscriptor* /recaPagoConsultasWS/api/pago/consulta /tgrTablasGralesWs/api/tablasgrales/*
 accessControlAllowOrigin: "*"
 cognito: BUILD_COGNITO_POOL_ARN
 apiId: BUILD_API_ID
 apiRootId: BUILD_API_ROOT_ID
+apiHostnameVerifyCaptcha: www.google.com
+apipathVerifyCaptcha: /recaptcha/api/siteverify
+idAppRecaptcha2: 6LcObZUUAAAAAJ371RFuzWx-Q9ebINm5VVUlAb5Y
+idAppRecaptcha3: 6Lc2dpUUAAAAACdFyhwIBgpNo8Y735oQWIBNU0Vj
+threshold: 0.5
 
