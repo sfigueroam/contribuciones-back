@@ -6,9 +6,9 @@ bucketParse: BUILD_BUCKET_PARSE
 keyParse: parse.json
 api: #Diferencia
   grantType: BUILD_WST_GRANT_TYPE
-  clientSecret: TGR.C0ntr!bUC10n3s #Diferencia
-  clientId: OauthTrContribucionesRsClient #Diferencia
-  scope: /ClienteBienRaizWS/api/BienRaiz* /RecuperaDeudaROLRS/api/bienraiz/* /BienRaizWS/api/BienRaiz* /tgrSuscriptorWs/api/suscriptor* /recaPagoConsultasWS/api/pago/consulta
+  clientSecret: BUILD_WST_CLIENT_SECRET
+  clientId: BUILD_WST_CLIENT_ID
+  scope: BUILD_WST_SCOPE
   hostname: BUILD_WST_HOST
   port: BUILD_WST_PORT
 accessControlAllowOrigin: "*"
