@@ -1,0 +1,152 @@
+#
+
+service: tgr-contribuciones-back
+custom: ${file(config.yml)}
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ${self:custom.region}
+  stage: ${self:custom.stage}
+  role: arn:aws:iam::026430579524:role/lambda-tgr-pit
+    #  apiGateway:
+    #    restApiId: ${self:custom.apiId}
+  #  restApiRootResourceId: ${self:custom.apiRootId}
+#  stackName: tgr-${self:custom.stage}-contribuciones
+#  stackTags:
+#    Application: contribuciones
+#    Env: ${self:custom.stage}
+
+package:
+  exclude:
+  - test/*
+  - package-lock.json
+  - package.json
+  - tgr-parse-proxies-poc-dev/*
+
+functions:
+
+  tokensRenew:
+    name: tgr-${self:custom.stage}-contribuciones-tokensRenew
+    handler: tokens-renew.handler
+    events:
+      - schedule: rate(4 minutes)
+    environment:
+      foo: bar
+      wsHostname: ${self:custom.api.hostname}
+      wsPort: ${self:custom.api.port}
+      grantType: ${self:custom.api.grantType}
+      clienteSecret: ${self:custom.api.clientSecret}
+      clienteId: ${self:custom.api.clientId}
+      tokenScope: ${self:custom.api.scope}
+      bucket: ${self:custom.bucket}
+
+  api_captcha2:
+    name: tgr-${self:custom.stage}-contribuciones-captcha2
+    handler: api-captcha.handler
+    timeout: 30
+    events:
+      - http:
+          path: captcha/v2
+          method: post
+          cors: true
+    environment:
+      apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
+      apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
+      idApp: ${self:custom.idAppRecaptcha2}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+      threshold: 0.0
+
+  api_captcha3:
+    name: tgr-${self:custom.stage}-contribuciones-captcha3
+    handler: api-captcha.handler
+    timeout: 30
+    events:
+      - http:
+          path: captcha/v3
+          method: post
+          cors: true
+    environment:
+      apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
+      apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
+      idApp: ${self:custom.idAppRecaptcha3}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+      threshold: ${self:custom.threshold}
+
+  public:
+    name: tgr-${self:custom.stage}-contribuciones-public
+    handler: api.handler
+    timeout: 30
+    events:
+      - http:
+          path: api/tgrSuscriptorWs/api/suscriptor/certificado/obtener
+          method: post
+          cors: true
+
+      - http:
+          path: api/RecuperaDeudaROLRS/api/bienraiz/deuda/rol/obtiene
+          method: post
+          cors: true
+
+      - http:
+          path: api/BienRaizWS/api/BienRaiz/bienraiz/obtener/rolin
+          method: post
+          cors: true
+
+    environment:
+      wsHostname: ${se  lf:custom.api.hostname}
+      wsPort: ${self:custom.api.port}
+      bucket: ${self:custom.bucket}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+      clienteId: ${self:custom.api.clientId}
+
+  private:
+    name: tgr-${self:custom.stage}-contribuciones-private
+    handler: api.handler
+    timeout: 30
+    events:
+      - http:
+          path: api/recaPagoConsultasWS/api/pago/consulta
+          method: post
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+      - http:
+          path: api/ClienteBienRaizWS/api/BienRaiz/asociado/obtener/{rut}
+          method: get
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+          request:
+            parameters:
+              paths:
+                rut: true
+      - http:
+          path: api/ClienteBienRaizWS/api/BienRaiz/noasociado/obtener/{rut}
+          method: get
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+          request:
+            parameters:
+              paths:
+                rut: true
+      - http:
+          path: api/ClienteBienRaizWS/api/BienRaiz/bienraiz/asociar
+          method: post
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+
+      - http:
+          path: api/ClienteBienRaizWS/api/BienRaiz/bienraiz/desasociar
+          method: post
+          cors: true
+          authorizer:
+            arn: ${self:custom.cognito}
+    environment:
+      wsHostname: ${self:custom.api.hostname}
+      wsPort: ${self:custom.api.port}
+      bucket: ${self:custom.bucket}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+      clienteId: ${self:custom.api.clientId}
