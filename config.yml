@@ -6,16 +6,11 @@ bucketParse: tgr-dev-contribuciones-parse-pit
 keyParse: parse.json
 api: #Diferencia
   grantType: client_credentials
+  clientSecret: TGR.C0ntr!bUC10n3s
+  clientId: OauthTrContribucionesRsClient
+  scope: /ClienteBienRaizWS/api/BienRaiz* /RecuperaDeudaROLRS/api/bienraiz/* /BienRaizWS/api/BienRaiz* /tgrSuscriptorWs/api/suscriptor* /recaPagoConsultasWS/api/pago/consulta
   hostname: wstest.tesoreria.cl
   port: 443
-  contribucion: #Diferencia
-    clientSecret: TGR.C0ntr!bUC10n3s
-    clientId: OauthTrContribucionesRsClient
-    scope: /LiquidacionDeudaRs/api/bienraiz/* /PagoTotalRS/api/bienraiz* /tgrClientesWsCorreo/api/correosws* /tgrClientesWsCuentas/api/cuentaws/* /tgrClientesWsDatosBasicos/api/datosbasicosws* /tgrClientesWsDireccion/api/direccionws/* /tgrClientesWsTelefono/api/telefonows* /RecuperaDeudaROLRS/api/bienraiz/* /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz*
-  cuenta: #Diferencia
-    clientSecret: TGR.Cu2t!
-    clientId: OauthTrCuentaTgrRsClient
-    scope: /tgrSuscriptorWs/api/suscriptor* /recaPagoConsultasWS/api/pago/consulta /tgrTablasGralesWs/api/tablasgrales/*
 accessControlAllowOrigin: "*"
 cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_dD7fg7AJB
 apiId: 9l70yekz53

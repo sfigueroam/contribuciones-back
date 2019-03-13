@@ -7,22 +7,13 @@ let s3 = new AWS.S3();
 module.exports.handler = (event, context, callback) => {
 
     console.log('Renovando token Contribución');
-    let grantType =  process.env.tokenGrantType;
+    let grantType =  process.env.grantType;
 
-    let contTokenClientId = process.env.contTokenClienteId;
-    let contTokenScope = process.env.contTokenScope;
-    let contTokenClientSecret =  process.env.contTokenClienteSecret;
+    let clientId = process.env.clienteId;
+    let tokenScope = process.env.tokenScope;
+    let tokenClientSecret =  process.env.clienteSecret;
 
-    renew(contTokenClientId, contTokenClientSecret, contTokenScope, grantType);
-
-    let cuentTokenClientId = process.env.cuentTokenClienteId;
-    let cuentTokenScope = process.env.cuentTokenScope;
-    let cuentTokenClientSecret =  process.env.cuentTokenClienteSecret;
-
-    renew(cuentTokenClientId, cuentTokenClientSecret, cuentTokenScope, grantType);
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+    renew(clientId, tokenClientSecret, tokenScope, grantType);
 };
 
 

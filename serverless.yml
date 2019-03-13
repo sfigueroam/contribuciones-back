@@ -1,5 +1,6 @@
-service: tgr-contribuciones-back
+#
 
+service: tgr-contribuciones-back
 custom: ${file(config.yml)}
 
 provider:
@@ -7,7 +8,7 @@ provider:
   runtime: nodejs8.10
   region: ${self:custom.region}
   stage: ${self:custom.stage}
-  #role: arn:aws:iam::026430579524:role/lambda-tgr-pit
+  role: arn:aws:iam::026430579524:role/lambda-tgr-pit
     #  apiGateway:
     #    restApiId: ${self:custom.apiId}
   #  restApiRootResourceId: ${self:custom.apiRootId}
@@ -34,13 +35,10 @@ functions:
       foo: bar
       wsHostname: ${self:custom.api.hostname}
       wsPort: ${self:custom.api.port}
-      tokenGrantType: ${self:custom.api.grantType}
-      contTokenClienteSecret: ${self:custom.api.contribucion.clientSecret}
-      contTokenClienteId: ${self:custom.api.contribucion.clientId}
-      contTokenScope: ${self:custom.api.contribucion.scope}
-      cuentTokenClienteSecret: ${self:custom.api.cuenta.clientSecret}
-      cuentTokenClienteId: ${self:custom.api.cuenta.clientId}
-      cuentTokenScope: ${self:custom.api.cuenta.scope}
+      grantType: ${self:custom.api.grantType}
+      clienteSecret: ${self:custom.api.clientSecret}
+      clienteId: ${self:custom.api.clientId}
+      tokenScope: ${self:custom.api.scope}
       bucket: ${self:custom.bucket}
 
   api_captcha2:
@@ -102,7 +100,7 @@ functions:
       bucketParse: ${self:custom.bucketParse}
       keyParse: ${self:custom.keyParse}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      clienteId: ${self:custom.api.contribucion.clientId}
+      clienteId: ${self:custom.api.clientId}
 
   private:
     name: tgr-${self:custom.stage}-contribuciones-private
@@ -155,4 +153,4 @@ functions:
       bucketParse: ${self:custom.bucketParse}
       keyParse: ${self:custom.keyParse}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      clienteId: ${self:custom.api.contribucion.clientId}
+      clienteId: ${self:custom.api.clientId}

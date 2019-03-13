@@ -6,16 +6,11 @@ bucketParse: BUILD_BUCKET_PARSE
 keyParse: parse.json
 api: #Diferencia
   grantType: BUILD_WST_GRANT_TYPE
+  clientSecret: TGR.C0ntr!bUC10n3s #Diferencia
+  clientId: OauthTrContribucionesRsClient #Diferencia
+  scope: /ClienteBienRaizWS/api/BienRaiz* /RecuperaDeudaROLRS/api/bienraiz/* /BienRaizWS/api/BienRaiz* /tgrSuscriptorWs/api/suscriptor* /recaPagoConsultasWS/api/pago/consulta
   hostname: BUILD_WST_HOST
   port: BUILD_WST_PORT
-  contribucion: #Diferencia
-    clientSecret: TGR.C0ntr!bUC10n3s #Diferencia
-    clientId: OauthTrContribucionesRsClient #Diferencia
-    scope: /LiquidacionDeudaRs/api/bienraiz/* /PagoTotalRS/api/bienraiz* /tgrClientesWsCorreo/api/correosws* /tgrClientesWsCuentas/api/cuentaws/* /tgrClientesWsDatosBasicos/api/datosbasicosws* /tgrClientesWsDireccion/api/direccionws/* /tgrClientesWsTelefono/api/telefonows* /RecuperaDeudaROLRS/api/bienraiz/* /ClienteBienRaizWS/api/BienRaiz* /BienRaizWS/api/BienRaiz* #Diferencia
-  cuenta: #Diferencia
-    clientSecret: TGR.Cu2t! #Diferencia
-    clientId: OauthTrCuentaTgrRsClient #Diferencia
-    scope: /tgrSuscriptorWs/api/suscriptor* /recaPagoConsultasWS/api/pago/consulta /tgrTablasGralesWs/api/tablasgrales/* #Diferencia
 accessControlAllowOrigin: "*"
 cognito: BUILD_COGNITO_POOL_ARN
 apiId: BUILD_API_ID
