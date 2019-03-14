@@ -18,6 +18,12 @@ phases:
         - sed -i "s;BUILD_API_ID;${BUILD_API_ID};g"                                 ${CODEBUILD_SRC_DIR}/config.yml
         - sed -i "s;BUILD_API_ROOT_ID;${BUILD_API_ROOT_ID};g"                       ${CODEBUILD_SRC_DIR}/config.yml
 
+        - sed -i "s;BUILD_RECAPTCHA_HOST;${BUILD_RECAPTCHA_HOST};g"                 ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_RECAPTCHA_PATH;${BUILD_RECAPTCHA_PATH};g"                 ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_RECAPTCHA_IDAPP_V2;${BUILD_RECAPTCHA_IDAPP_V2};g"         ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_RECAPTCHA_IDAPP_V3;${BUILD_RECAPTCHA_IDAPP_V3};g"         ${CODEBUILD_SRC_DIR}/config.yml
+        - sed -i "s;BUILD_RECAPTCHA_THRESHOLD;${BUILD_RECAPTCHA_THRESHOLD};g"       ${CODEBUILD_SRC_DIR}/config.yml
+
         - echo Installing serverless...
         - npm install -g serverless
         - echo Installing source NPM dependencies...
