@@ -2,9 +2,7 @@ region: us-east-1
 stage: BUILD_ENV
 role: BUILD_LAMBDA_ROLE_ARN
 bucket: BUILD_BUCKET_TOKENS
-bucketParse: BUILD_BUCKET_PARSE
-keyParse: parse.json
-api: #Diferencia
+api:
   grantType: BUILD_WST_GRANT_TYPE
   clientSecret: BUILD_WST_CLIENT_SECRET
   clientId: BUILD_WST_CLIENT_ID
@@ -15,9 +13,9 @@ accessControlAllowOrigin: "*"
 cognito: BUILD_COGNITO_POOL_ARN
 apiId: BUILD_API_ID
 apiRootId: BUILD_API_ROOT_ID
-apiHostnameVerifyCaptcha: www.google.com #Diferencia
-apipathVerifyCaptcha: /recaptcha/api/siteverify #Diferencia
-idAppRecaptcha2: 6LcObZUUAAAAAJ371RFuzWx-Q9ebINm5VVUlAb5Y #Diferencia
-idAppRecaptcha3: 6Lc2dpUUAAAAACdFyhwIBgpNo8Y735oQWIBNU0Vj #Diferencia
-threshold: 0.5 #Diferencia
+apiHostnameVerifyCaptcha: BUILD_RECAPTCHA_HOST
+apipathVerifyCaptcha: BUILD_RECAPTCHA_PATH
+idAppRecaptcha2: BUILD_RECAPTCHA_IDAPP_V2
+idAppRecaptcha3: BUILD_RECAPTCHA_IDAPP_V3
+threshold: BUILD_RECAPTCHA_THRESHOLD
 
