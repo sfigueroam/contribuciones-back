@@ -2,7 +2,7 @@
 
 service: tgr-contribuciones-back
 
-custom: ${file(./config.yml)}
+custom: ${file(config.yml)}
 
 provider:
   name: aws
@@ -10,13 +10,13 @@ provider:
   region: ${self:custom.region}
   stage: ${self:custom.stage}
   role: ${self:custom.role}
-  apiGateway:
-    restApiId: ${self:custom.apiId}
-    restApiRootResourceId: ${self:custom.apiRootId}
-  stackName: tgr-${self:custom.stage}-contribuciones
-  stackTags:
-    Application: contribuciones
-    Env: ${self:custom.stage}
+  #  apiGateway:
+  #    restApiId: ${self:custom.apiId}
+  #  restApiRootResourceId: ${self:custom.apiRootId}
+#  stackName: tgr-${self:custom.stage}-contribuciones
+#  stackTags:
+#    Application: contribuciones
+#    Env: ${self:custom.stage}
 
 package:
   exclude:
@@ -27,9 +27,10 @@ package:
 
 functions:
 
-  deviceDetect:
-    name: tgr-${self:custom.stage}-contribuciones-device-detect
+  detectDevice:
+    name: tgr-${self:custom.stage}-contribuciones-detect-device
     handler: device-detect.handler
+    timeout: 30
     events:
       - http:
           path: detect
@@ -104,7 +105,7 @@ functions:
           cors: true
 
     environment:
-      wsHostname: ${se  lf:custom.api.hostname}
+      wsHostname: ${self:custom.api.hostname}
       wsPort: ${self:custom.api.port}
       bucket: ${self:custom.bucket}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}

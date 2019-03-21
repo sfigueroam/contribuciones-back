@@ -8,9 +8,9 @@ provider:
   runtime: nodejs8.10
   region: ${self:custom.region}
   stage: ${self:custom.stage}
-  role: arn:aws:iam::026430579524:role/lambda-tgr-pit
-    #  apiGateway:
-    #    restApiId: ${self:custom.apiId}
+  role: ${self:custom.role}
+  #  apiGateway:
+  #    restApiId: ${self:custom.apiId}
   #  restApiRootResourceId: ${self:custom.apiRootId}
 #  stackName: tgr-${self:custom.stage}-contribuciones
 #  stackTags:
