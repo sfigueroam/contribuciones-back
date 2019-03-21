@@ -27,15 +27,17 @@ package:
 
 functions:
 
-  deviceDetect:
-    name: tgr-${self:custom.stage}-contribuciones-device-detect
+  detectDevice:
+    name: tgr-${self:custom.stage}-contribuciones-detect-device
     handler: device-detect.handler
+    timeout: 30
     events:
       - http:
           path: detect
           method: get
           cors: true
-
+    environment:
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
   tokensRenew:
     name: tgr-${self:custom.stage}-contribuciones-tokensRenew
     handler: tokens-renew.handler
@@ -104,7 +106,7 @@ functions:
           cors: true
 
     environment:
-      wsHostname: ${se  lf:custom.api.hostname}
+      wsHostname: ${self:custom.api.hostname}
       wsPort: ${self:custom.api.port}
       bucket: ${self:custom.bucket}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
