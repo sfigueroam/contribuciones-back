@@ -28,6 +28,7 @@ package:
 functions:
 
   deviceDetect:
+    name: tgr-${self:custom.stage}-contribuciones-device-detect
     handler: device-detect.handler
     events:
       - http:
