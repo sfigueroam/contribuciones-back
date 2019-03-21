@@ -10,13 +10,13 @@ module.exports.handler = async (event, context) => {
 
     };
 
-    if(event.headers['CloudFront-Is-Desktop-Viewer'] === 'true'){
+    if(event.headers['CloudFront-Is-Desktop-Viewer'] == 'true'){
         device.desktop = true;
-    } else if(event.headers['CloudFront-Is-Tablet-Viewer'] === 'true'){
+    } else if(event.headers['CloudFront-Is-Tablet-Viewer'] == 'true'){
         device.tablet = true;
-    } else if(event.headers['CloudFront-Is-Mobile-Viewer'] === 'true'){
+    } else if(event.headers['CloudFront-Is-Mobile-Viewer'] == 'true'){
         device.mobile = true;
-    } else if(event.headers['CloudFront-Is-SmartTV-Viewer'] === 'true'){
+    } else if(event.headers['CloudFront-Is-SmartTV-Viewer'] == 'true'){
         device.smartTv = true;
     }
 
