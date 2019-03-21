@@ -36,7 +36,8 @@ functions:
           path: detect
           method: get
           cors: true
-
+    environment:
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
   tokensRenew:
     name: tgr-${self:custom.stage}-contribuciones-tokensRenew
     handler: tokens-renew.handler

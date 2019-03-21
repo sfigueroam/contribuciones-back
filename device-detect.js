@@ -1,6 +1,7 @@
 'use strict';
+const util = require('./util');
 
-module.exports.handler = async (event, context) => {
+module.exports.handler = async (event, context, callback) => {
 
     let device = {
         desktop : false,
@@ -20,11 +21,6 @@ module.exports.handler = async (event, context) => {
         device.smartTv = true;
     }
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            device: device,
-        }),
-    };
+    util.responseOk({device: device}, callback);
 
 };
