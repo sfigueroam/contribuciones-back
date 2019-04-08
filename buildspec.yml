@@ -1,43 +1,46 @@
 version: 0.2
 phases:
-    install:
-        commands:
-        - cp ${CODEBUILD_SRC_DIR}/config.template.yml                               ${CODEBUILD_SRC_DIR}/config.yml
+  install:
+    commands:
+      - rm ${CODEBUILD_SRC_DIR}/serverless.yml
+      - touch ${CODEBUILD_SRC_DIR}/serverless.yml
+      - cp ${CODEBUILD_SRC_DIR}/config.template.yml                               ${CODEBUILD_SRC_DIR}/config.yml
+      - cp ${CODEBUILD_SRC_DIR}/serverless.template.yml                           ${CODEBUILD_SRC_DIR}/serverless.yml
 
-        - sed -i "s;BUILD_ENV;${BUILD_ENV};g"                                       ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_LAMBDA_ROLE_ARN;${BUILD_LAMBDA_ROLE_ARN};g"               ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_BUCKET_TOKENS;${BUILD_BUCKET_TOKENS};g"                   ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_BUCKET_PARSE;${BUILD_BUCKET_PARSE};g"                     ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_WST_GRANT_TYPE;${BUILD_WST_GRANT_TYPE};g"                 ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_WST_CLIENT_SECRET;${BUILD_WST_CLIENT_SECRET};g"           ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_WST_CLIENT_ID;${BUILD_WST_CLIENT_ID};g"                   ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_WST_SCOPE;${BUILD_WST_SCOPE};g"                           ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_WST_HOST;${BUILD_WST_HOST};g"                             ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_WST_PORT;${BUILD_WST_PORT};g"                             ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_COGNITO_POOL_ARN;${BUILD_COGNITO_POOL_ARN};g"             ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_API_ID;${BUILD_API_ID};g"                                 ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_API_ROOT_ID;${BUILD_API_ROOT_ID};g"                       ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_ENV;${BUILD_ENV};g"                                       ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_LAMBDA_ROLE_ARN;${BUILD_LAMBDA_ROLE_ARN};g"               ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_BUCKET_TOKENS;${BUILD_BUCKET_TOKENS};g"                   ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_BUCKET_PARSE;${BUILD_BUCKET_PARSE};g"                     ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WST_GRANT_TYPE;${BUILD_WST_GRANT_TYPE};g"                 ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WST_CLIENT_SECRET;${BUILD_WST_CLIENT_SECRET};g"           ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WST_CLIENT_ID;${BUILD_WST_CLIENT_ID};g"                   ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WST_SCOPE;${BUILD_WST_SCOPE};g"                           ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WST_HOST;${BUILD_WST_HOST};g"                             ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WST_PORT;${BUILD_WST_PORT};g"                             ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_COGNITO_POOL_ARN;${BUILD_COGNITO_POOL_ARN};g"             ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_API_ID;${BUILD_API_ID};g"                                 ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_API_ROOT_ID;${BUILD_API_ROOT_ID};g"                       ${CODEBUILD_SRC_DIR}/config.yml
 
-        - sed -i "s;BUILD_RECAPTCHA_HOST;${BUILD_RECAPTCHA_HOST};g"                 ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_RECAPTCHA_PATH;${BUILD_RECAPTCHA_PATH};g"                 ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_RECAPTCHA_IDAPP_V2;${BUILD_RECAPTCHA_IDAPP_V2};g"         ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_RECAPTCHA_IDAPP_V3;${BUILD_RECAPTCHA_IDAPP_V3};g"         ${CODEBUILD_SRC_DIR}/config.yml
-        - sed -i "s;BUILD_RECAPTCHA_THRESHOLD;${BUILD_RECAPTCHA_THRESHOLD};g"       ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_RECAPTCHA_HOST;${BUILD_RECAPTCHA_HOST};g"                 ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_RECAPTCHA_PATH;${BUILD_RECAPTCHA_PATH};g"                 ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_RECAPTCHA_IDAPP_V2;${BUILD_RECAPTCHA_IDAPP_V2};g"         ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_RECAPTCHA_IDAPP_V3;${BUILD_RECAPTCHA_IDAPP_V3};g"         ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_RECAPTCHA_THRESHOLD;${BUILD_RECAPTCHA_THRESHOLD};g"       ${CODEBUILD_SRC_DIR}/config.yml
 
-        - echo Installing serverless...
-        - npm install -g serverless
-        - echo Installing source NPM dependencies...
-        - npm install
+      - echo Installing serverless...
+      - npm install -g serverless
+      - echo Installing source NPM dependencies...
+      - npm install
 
 
-    build:
-        commands:
-        - serverless deploy --stage ${BUILD_ENV}
+  build:
+    commands:
+      - serverless deploy --stage ${BUILD_ENV}
 
-    post_build:
-        commands:
+  post_build:
+    commands:
 
 artifacts:
-    files:
-        – serverless.yml
-    discard-paths: yes
+  files:
+    – serverless.yml
+  discard-paths: yes

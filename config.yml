@@ -12,6 +12,7 @@ api: #Diferencia
   hostname: wstest.tesoreria.cl
   port: 443
 accessControlAllowOrigin: "*"
+cors: true
 cognito: arn:aws:cognito-idp:us-east-1:080540609156:userpool/us-east-1_dD7fg7AJB
 apiId: 9l70yekz53
 apiRootId: p384k1g8s8
@@ -19,4 +20,9 @@ apiHostnameVerifyCaptcha: www.google.com
 apipathVerifyCaptcha: /recaptcha/api/siteverify
 idAppRecaptcha2: 6LcObZUUAAAAAJ371RFuzWx-Q9ebINm5VVUlAb5Y
 idAppRecaptcha3: 6Lc2dpUUAAAAACdFyhwIBgpNo8Y735oQWIBNU0Vj
-threshold: 0.5
+threshold: 0.1
+elasticsearch:
+  endpoint: search-dev-contribuciones-qj3q3jeqbkw5ix5ybdrdlpfqq4.us-east-1.es.amazonaws.com
+  maxSize: 50
+
+

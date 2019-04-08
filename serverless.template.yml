@@ -1,7 +1,8 @@
 #
 
 service: tgr-contribuciones-back
-custom: ${file(config.yml)}
+
+custom: ${file(./config.yml)}
 
 provider:
   name: aws
@@ -9,13 +10,13 @@ provider:
   region: ${self:custom.region}
   stage: ${self:custom.stage}
   role: ${self:custom.role}
-  #  apiGateway:
-  #    restApiId: ${self:custom.apiId}
-  #  restApiRootResourceId: ${self:custom.apiRootId}
-#  stackName: tgr-${self:custom.stage}-contribuciones
-#  stackTags:
-#    Application: contribuciones
-#    Env: ${self:custom.stage}
+  apiGateway:
+    restApiId: ${self:custom.apiId}
+    restApiRootResourceId: ${self:custom.apiRootId}
+  stackName: tgr-${self:custom.stage}-contribuciones
+  stackTags:
+    Application: contribuciones
+    Env: ${self:custom.stage}
 
 package:
   exclude:
@@ -26,6 +27,17 @@ package:
 
 functions:
 
+  detectDevice:
+    name: tgr-${self:custom.stage}-contribuciones-detect-device
+    handler: device-detect.handler
+    timeout: 30
+    events:
+      - http:
+          path: detect
+          method: get
+          cors: ${self:custom.cors}
+    environment:
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
   tokensRenew:
     name: tgr-${self:custom.stage}-contribuciones-tokensRenew
     handler: tokens-renew.handler
@@ -49,7 +61,7 @@ functions:
       - http:
           path: captcha/v2
           method: post
-          cors: true
+          cors: ${self:custom.cors}
     environment:
       apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
       apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
@@ -65,7 +77,7 @@ functions:
       - http:
           path: captcha/v3
           method: post
-          cors: true
+          cors: ${self:custom.cors}
     environment:
       apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
       apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
@@ -81,20 +93,20 @@ functions:
       - http:
           path: api/tgrSuscriptorWs/api/suscriptor/certificado/obtener
           method: post
-          cors: true
+          cors: ${self:custom.cors}
 
       - http:
           path: api/RecuperaDeudaROLRS/api/bienraiz/deuda/rol/obtiene
           method: post
-          cors: true
+          cors: ${self:custom.cors}
 
       - http:
           path: api/BienRaizWS/api/BienRaiz/bienraiz/obtener/rolin
           method: post
-          cors: true
+          cors: ${self:custom.cors}
 
     environment:
-      wsHostname: ${se  lf:custom.api.hostname}
+      wsHostname: ${self:custom.api.hostname}
       wsPort: ${self:custom.api.port}
       bucket: ${self:custom.bucket}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
@@ -108,13 +120,13 @@ functions:
       - http:
           path: api/recaPagoConsultasWS/api/pago/consulta
           method: post
-          cors: true
+          cors: ${self:custom.cors}
           authorizer:
             arn: ${self:custom.cognito}
       - http:
           path: api/ClienteBienRaizWS/api/BienRaiz/asociado/obtener/{rut}
           method: get
-          cors: true
+          cors: ${self:custom.cors}
           authorizer:
             arn: ${self:custom.cognito}
           request:
@@ -124,7 +136,7 @@ functions:
       - http:
           path: api/ClienteBienRaizWS/api/BienRaiz/noasociado/obtener/{rut}
           method: get
-          cors: true
+          cors: ${self:custom.cors}
           authorizer:
             arn: ${self:custom.cognito}
           request:
@@ -134,14 +146,14 @@ functions:
       - http:
           path: api/ClienteBienRaizWS/api/BienRaiz/bienraiz/asociar
           method: post
-          cors: true
+          cors: ${self:custom.cors}
           authorizer:
             arn: ${self:custom.cognito}
 
       - http:
           path: api/ClienteBienRaizWS/api/BienRaiz/bienraiz/desasociar
           method: post
-          cors: true
+          cors: ${self:custom.cors}
           authorizer:
             arn: ${self:custom.cognito}
     environment:
@@ -150,3 +162,16 @@ functions:
       bucket: ${self:custom.bucket}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
       clienteId: ${self:custom.api.clientId}
+
+  direccion:
+    name: tgr-${self:custom.stage}-contribuciones-direccion
+    handler: direccion.handler
+    events:
+      - http:
+          path: search/{tipo}
+          method: post
+          cors: ${self:custom.cors}
+    environment:
+      elasticsearchUrl: ${self:custom.elasticsearch.endpoint}
+      maxSize: ${self:custom.elasticsearch.maxSize}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
