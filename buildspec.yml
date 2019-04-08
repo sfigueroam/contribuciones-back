@@ -2,7 +2,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - rm ${CODEBUILD_SRC_DIR}/serverless.yml
+      - rm -f ${CODEBUILD_SRC_DIR}/serverless.yml
       - touch ${CODEBUILD_SRC_DIR}/serverless.yml
       - cp ${CODEBUILD_SRC_DIR}/config.template.yml                               ${CODEBUILD_SRC_DIR}/config.yml
       - cp ${CODEBUILD_SRC_DIR}/serverless.template.yml                           ${CODEBUILD_SRC_DIR}/serverless.yml
