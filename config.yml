@@ -2,8 +2,6 @@ region: us-east-1
 stage: dev
 role: arn:aws:iam::026430579524:role/lambda-tgr-pit
 bucket: tgr-dev-contribuciones-tokens-pit
-bucketParse: tgr-dev-contribuciones-parse-pit
-keyParse: parse.json
 api: #Diferencia
   grantType: client_credentials
   clientSecret: TGR.C0ntr!bUC10n3s
@@ -24,5 +22,3 @@ threshold: 0.1
 elasticsearch:
   endpoint: search-dev-contribuciones-qj3q3jeqbkw5ix5ybdrdlpfqq4.us-east-1.es.amazonaws.com
   maxSize: 50
-
-
