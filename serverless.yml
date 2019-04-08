@@ -84,6 +84,26 @@ functions:
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
       threshold: ${self:custom.threshold}
 
+  recaptcha3:
+    name: tgr-${self:custom.stage}-contribuciones-recaptcha3
+    handler: api-captcha.handler
+    timeout: 30
+    events:
+      - http:
+          path: captcha/v3/BienRaizWS/api/BienRaiz/bienraiz/obtener/rolin/
+          method: post
+          cors: ${self:custom.cors}
+    environment:
+      apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
+      apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
+      idApp: ${self:custom.idAppRecaptcha3}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+      threshold: ${self:custom.threshold}
+      wsHostname: ${self:custom.api.hostname}
+      wsPort: ${self:custom.api.port}
+      bucket: ${self:custom.bucket}
+      clienteId: ${self:custom.api.clientId}
+
   public:
     name: tgr-${self:custom.stage}-contribuciones-public
     handler: api.handler
