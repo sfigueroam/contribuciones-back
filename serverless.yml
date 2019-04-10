@@ -51,48 +51,23 @@ functions:
       clienteId: ${self:custom.api.clientId}
       tokenScope: ${self:custom.api.scope}
       bucket: ${self:custom.bucket}
-
-  api_captcha2:
-    name: tgr-${self:custom.stage}-contribuciones-captcha2
-    handler: api-captcha.handler
-    timeout: 30
-    events:
-      - http:
-          path: captcha/v2
-          method: post
-          cors: ${self:custom.cors}
-    environment:
-      apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
-      apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
-      idApp: ${self:custom.idAppRecaptcha2}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      threshold: 0.0
-
-  api_captcha3:
-    name: tgr-${self:custom.stage}-contribuciones-captcha3
-    handler: api-captcha.handler
-    timeout: 30
-    events:
-      - http:
-          path: captcha/v3
-          method: post
-          cors: ${self:custom.cors}
-    environment:
-      apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
-      apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
-      idApp: ${self:custom.idAppRecaptcha3}
-      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
-      threshold: ${self:custom.threshold}
+      elasticsearchUrl: ${self:custom.elasticsearch.endpoint}
+      maxSize: ${self:custom.elasticsearch.maxSize}
 
   recaptcha3:
     name: tgr-${self:custom.stage}-contribuciones-recaptcha3
-    handler: api-captcha.handler
+    handler: recaptcha.handler
     timeout: 30
     events:
       - http:
-          path: captcha/v3/BienRaizWS/api/BienRaiz/bienraiz/obtener/rolin/
+          path: captcha/v3/api/BienRaizWS/api/BienRaiz/bienraiz/obtener/rolin
           method: post
           cors: ${self:custom.cors}
+      - http:
+          path: captcha/v3/api/elasticsearch/{tipo}
+          method: post
+          cors: ${self:custom.cors}
+
     environment:
       apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
       apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
@@ -103,6 +78,35 @@ functions:
       wsPort: ${self:custom.api.port}
       bucket: ${self:custom.bucket}
       clienteId: ${self:custom.api.clientId}
+      elasticsearchUrl: ${self:custom.elasticsearch.endpoint}
+      maxSize: ${self:custom.elasticsearch.maxSize}
+
+  recaptcha2:
+    name: tgr-${self:custom.stage}-contribuciones-recaptcha2
+    handler: recaptcha.handler
+    timeout: 30
+    events:
+      - http:
+          path: captcha/v2/api/BienRaizWS/api/BienRaiz/bienraiz/obtener/rolin
+          method: post
+          cors: ${self:custom.cors}
+      - http:
+          path: captcha/v2/api/elasticsearch/{tipo}
+          method: post
+          cors: ${self:custom.cors}
+
+    environment:
+      apiHostnameVerifyCaptcha: ${self:custom.apiHostnameVerifyCaptcha}
+      apipathVerifyCaptcha: ${self:custom.apipathVerifyCaptcha}
+      idApp: ${self:custom.idAppRecaptcha2}
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+      threshold: 0.0
+      wsHostname: ${self:custom.api.hostname}
+      wsPort: ${self:custom.api.port}
+      bucket: ${self:custom.bucket}
+      clienteId: ${self:custom.api.clientId}
+      elasticsearchUrl: ${self:custom.elasticsearch.endpoint}
+      maxSize: ${self:custom.elasticsearch.maxSize}
 
   public:
     name: tgr-${self:custom.stage}-contribuciones-public
@@ -182,15 +186,19 @@ functions:
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
       clienteId: ${self:custom.api.clientId}
 
-  direccion:
-    name: tgr-${self:custom.stage}-contribuciones-direccion
-    handler: direccion.handler
+  elasticSearch-tipo:
+    name: tgr-${self:custom.stage}-contribuciones-elastisearch-tipo
+    handler: direccion-tipo.handler
     events:
       - http:
-          path: search/{tipo}
+          path: elasticsearch/{tipo}
           method: post
           cors: ${self:custom.cors}
+          request:
+            parameters:
+              paths:
+                tipo: true
     environment:
       elasticsearchUrl: ${self:custom.elasticsearch.endpoint}
-      maxSize: ${self:custom.elasticsearch.maxSize}
+      maxSize: ${self:custom.elasticsearch.maxSizeAutoComplate}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}

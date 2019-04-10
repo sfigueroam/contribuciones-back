@@ -10,7 +10,6 @@ api:
   hostname: BUILD_WST_HOST
   port: BUILD_WST_PORT
 accessControlAllowOrigin: "*"
-cors: true
 cognito: BUILD_COGNITO_POOL_ARN
 apiId: BUILD_API_ID
 apiRootId: BUILD_API_ROOT_ID
@@ -19,6 +18,9 @@ apipathVerifyCaptcha: BUILD_RECAPTCHA_PATH
 idAppRecaptcha2: BUILD_RECAPTCHA_IDAPP_V2
 idAppRecaptcha3: BUILD_RECAPTCHA_IDAPP_V3
 threshold: BUILD_RECAPTCHA_THRESHOLD
+cors: true
 elasticsearch:
   endpoint: search-dev-contribuciones-qj3q3jeqbkw5ix5ybdrdlpfqq4.us-east-1.es.amazonaws.com
-  maxSize: 50
+  maxSize: 60
+  maxSizeAutoComplate: 10
+
