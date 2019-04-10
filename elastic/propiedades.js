@@ -11,12 +11,8 @@ module.exports.handler = (event, context, callback) => {
     const search = eventBody.search.replace(',', ' ');
     const body = {size: {}, query: {bool: {must: []}}};
     const tipoPropiedad = eventBody.tipoPropiedad;
-    const size = eventBody.size;
-    if (eventBody.size === undefined || eventBody.size > process.env.maxSize) {
-        size = eventBody.size;
-    }
 
-    body.size = size;
+    body.size = process.env.maxSize;
     body.from = 0;
     body.query.bool.must = [];
 
