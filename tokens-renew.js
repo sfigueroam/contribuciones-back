@@ -16,8 +16,11 @@ module.exports.handler = (event, context, callback) => {
     renew(clientId, tokenClientSecret, tokenScope, grantType);
 };
 
+function deleteObject(deleteObject){
+     return s3.deleteObject(deleteObject).promise().then(data => console.log('eliminado', data)).catch(err => console('error', err));
+}
 
-function renew(clienteId, clientSecret, scope, grantType){
+ function renew(clienteId, clientSecret, scope, grantType){
     let bucket = process.env.bucket;
     let count = 0;
 
@@ -54,22 +57,38 @@ function renew(clienteId, clientSecret, scope, grantType){
     req.on('error', (e) => {
         console.error(e);
     });
-    req.on('close', () => {
-        var params = {
-            Body: responseChunks.join('').toString(),
+    req.on('close', async () => {
+
+        const deleteParams = {
             Bucket: bucket,
             Key: clienteId + ".response"
         };
 
-        console.log('Actualizando s3,  parametros: ', params);
-        s3.putObject(params, function (err, data) {
-            if (err)
-                console.log(err, err.stack); // an error occurred
-            else {
-                console.log("Token actualizado con exito en s3, archivo: ", params.Key);
-                //callback(null, responseChunks.join('').toString());
-            }
-        });
+        await deleteObject(deleteParams);
+
+        const body = responseChunks.join('').toString();
+
+        if (JSON.parse(body).access_token === undefined) {
+            console.log("Error al Obtener el token");
+        } else {
+            const params = {
+                Body: body,
+                Bucket: bucket,
+                Key: clienteId + ".response"
+            };
+
+            console.log('Actualizando s3,  parametros: ', params);
+
+            s3.putObject(params, function (err, data) {
+                if (err)
+                    console.log(err, err.stack); // an error occurred
+                else {
+                    console.log("Token actualizado con exito en s3, archivo: ", params.Key);
+                    //callback(null, responseChunks.join('').toString());
+                }
+            });
+        }
     });
     req.end();
 }
+
