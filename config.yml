@@ -17,7 +17,7 @@ apiHostnameVerifyCaptcha: www.google.com
 apipathVerifyCaptcha: /recaptcha/api/siteverify
 idAppRecaptcha2: 6LcObZUUAAAAAJ371RFuzWx-Q9ebINm5VVUlAb5Y
 idAppRecaptcha3: 6Lc2dpUUAAAAACdFyhwIBgpNo8Y735oQWIBNU0Vj
-threshold: 0.2
+threshold: 0.1
 cors: true
 elasticsearch:
   endpoint: search-dev-contribuciones-qj3q3jeqbkw5ix5ybdrdlpfqq4.us-east-1.es.amazonaws.com
