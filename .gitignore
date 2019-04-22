@@ -40,7 +40,7 @@ tslint.xml
 *.tar
 *.tgz
 .serverless
-
+config.yml
 # System Files
 .DS_Store
 Thumbs.db

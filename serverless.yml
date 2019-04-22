@@ -108,6 +108,30 @@ functions:
       elasticsearchUrl: ${self:custom.elasticsearch.endpoint}
       maxSize: ${self:custom.elasticsearch.maxSize}
 
+  dummyMail:
+    name: tgr-${self:custom.stage}-contribuciones-dummy-enviar-mail
+    handler: dummy.enviarMailCodigoVerificacion
+    timeout: 30
+    events:
+      - http:
+          path: roles/codigorecuperacion/enviar
+          method: post
+          cors: true
+    environment:
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+
+  dummyCodigo:
+    name: tgr-${self:custom.stage}-contribuciones-dummy-codigo-recuperacion
+    handler: dummy.validarCodigo
+    timeout: 30
+    events:
+      - http:
+          path: roles/codigorecuperacion/validar
+          method: post
+          cors: true
+    environment:
+      accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+
   public:
     name: tgr-${self:custom.stage}-contribuciones-public
     handler: api.handler
@@ -117,7 +141,6 @@ functions:
           path: api/tgrSuscriptorWs/api/suscriptor/certificado/obtener
           method: post
           cors: ${self:custom.cors}
-
       - http:
           path: api/RecuperaDeudaROLRS/api/bienraiz/deuda/rol/obtiene
           method: post
@@ -127,6 +150,32 @@ functions:
           path: api/BienRaizWS/api/BienRaiz/bienraiz/obtener/rolin
           method: post
           cors: ${self:custom.cors}
+      - http:
+          path: api/contribuciones/v1/usuarios/{idUsuario}/roles
+          method: get
+          cors: ${self:custom.cors}
+          request:
+            parameters:
+              paths:
+                idUsuario: true
+      - http:
+          path: api/contribuciones/v1/usuarios/{idUsuario}/roles
+          method: post
+          cors: ${self:custom.cors}
+          request:
+            parameters:
+              paths:
+                idUsuario: true
+      - http:
+          path: api/contribuciones/v1/usuarios/{idUsuario}/roles/{rol}
+          method: delete
+          cors: ${self:custom.cors}
+          request:
+            parameters:
+              paths:
+                idUsuario: true
+                rol: true
+
 
     environment:
       wsHostname: ${self:custom.api.hostname}

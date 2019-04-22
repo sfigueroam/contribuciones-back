@@ -8,7 +8,7 @@ function obtenerHeaders (){
     if (accessControlAllowOrigin) {
         return {
             'Access-Control-Allow-Origin': accessControlAllowOrigin, // Required for CORS support to work
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE'
         }
     } else {
         return undefined;
