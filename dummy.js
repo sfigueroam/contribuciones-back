@@ -1,5 +1,7 @@
 'use strict';
 
+const dummyEmail = 'jmora@tgr.cl jcandia@tgr.cl';
+
 function headers(method) {
     const accessControlAllowOrigin = process.env.accessControlAllowOrigin;
     if (accessControlAllowOrigin) {
@@ -20,7 +22,7 @@ module.exports.enviarMailCodigoVerificacion = async (event, context, callback) =
 
     if (requestBody && requestBody.correo) {
         response.statusCode = 200;
-        if (requestBody.correo === 'jmora@tgr.cl') {
+        if (dummyEmail.indexOf(requestBody.correo) !== -1) {
             response.body = JSON.stringify({
                 resultado: '1',
                 descripcion: 'Correo enviado'
@@ -48,7 +50,7 @@ module.exports.validarCodigo = async (event, context, callback) => {
 
     if (requestBody && requestBody.correo && requestBody.codigo) {
         response.statusCode = 200;
-        if (requestBody.correo === 'jmora@tgr.cl' && requestBody.codigo === '123456') {
+        if (dummyEmail.indexOf(requestBody.correo) !== -1 && requestBody.codigo === '123456') {
             response.body = JSON.stringify({
                 resultado: '1',
                 descripcion: 'Codigo valido'
