@@ -252,3 +252,21 @@ functions:
       elasticsearchUrl: ${self:custom.elasticsearch.endpoint}
       maxSize: ${self:custom.elasticsearch.maxSizeAutoComplate}
       accessControlAllowOrigin: ${self:custom.accessControlAllowOrigin}
+
+  preSignUp:
+    name: tgr-${self:custom.stage}-contribuciones-passwordless-preSignUp
+    handler: passwordless.preSignUp
+
+  defineAuthChallenge:
+    name: tgr-${self:custom.stage}-contribuciones-passwordless-defineAuthChallenge
+    handler: passwordless.defineAuthChallenge
+
+  createAuthChallenge:
+    name: tgr-${self:custom.stage}-contribuciones-passwordless-createAuthChallenge
+    handler: passwordless.createAuthChallenge
+    environment:
+      SES_FROM_ADDRESS: ${self:custom.SesFromAddress}
+
+  verifyAuthChallenge:
+    name: tgr-${self:custom.stage}-contribuciones-passwordless-verifyAuthChallenge
+    handler: passwordless.verifyAuthChallenge

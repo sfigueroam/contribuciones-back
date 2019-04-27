@@ -13,6 +13,7 @@
     "dotenv": "^6.1.0"
   },
   "dependencies": {
+    "crypto-secure-random-digit": "^1.0.7",
     "mutex-promise": "^0.1.0"
   }
 }
