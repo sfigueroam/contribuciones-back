@@ -20,8 +20,7 @@ idAppRecaptcha3: BUILD_RECAPTCHA_IDAPP_V3
 threshold: BUILD_RECAPTCHA_THRESHOLD
 cors: true
 elasticsearch:
-  #endpoint: search-dev-contribuciones-qj3q3jeqbkw5ix5ybdrdlpfqq4.us-east-1.es.amazonaws.com
-  endpoint: search-tgr-dev-contribuciones-3ccdjasxoalc3b7tafdp2yev3e.us-east-1.es.amazonaws.com
+  endpoint: BUILD_ELASTICSEARCH_URL
   maxSize: 60
   maxSizeAutoComplate: 10
 

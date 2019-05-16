@@ -27,8 +27,10 @@ phases:
       - sed -i "s;BUILD_RECAPTCHA_IDAPP_V3;${BUILD_RECAPTCHA_IDAPP_V3};g"         ${CODEBUILD_SRC_DIR}/config.yml
       - sed -i "s;BUILD_RECAPTCHA_THRESHOLD;${BUILD_RECAPTCHA_THRESHOLD};g"       ${CODEBUILD_SRC_DIR}/config.yml
 
+      - sed -i "s;BUILD_ELASTICSEARCH_URL;${BUILD_ELASTICSEARCH_URL};g"           ${CODEBUILD_SRC_DIR}/config.yml
+
       - echo Installing serverless...
-      - npm install -g serverless@1.41.1
+      - npm install -g serverless
       - echo Installing source NPM dependencies...
       - npm install
 
