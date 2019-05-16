@@ -30,7 +30,7 @@ phases:
       - sed -i "s;BUILD_ELASTICSEARCH_URL;${BUILD_ELASTICSEARCH_URL};g"           ${CODEBUILD_SRC_DIR}/config.yml
 
       - echo Installing serverless...
-      - npm install -g serverless
+      - npm install -g serverless@1.41.1
       - echo Installing source NPM dependencies...
       - npm install
 
