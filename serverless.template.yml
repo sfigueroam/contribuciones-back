@@ -27,6 +27,20 @@ package:
 
 functions:
 
+  ObtieneDeuda:
+    name: tgr-${self:custom.stage}-contribuciones-obtiene-deuda
+    handler: obtiene-deuda.handler
+    timeout: 30
+    events:
+      - http:
+          path: servicios-recaudacion/v1/liquidacion/deudasrol/{rol}
+          method: get
+          cors: ${self:custom.cors}
+          authorizer: 
+            arn: ${self:custom.cognito}
+            scopes:
+             - tgr-${self:custom.env}-api-servicios-cut/all
+
   detectDevice:
     name: tgr-${self:custom.stage}-contribuciones-detect-device
     handler: device-detect.handler
