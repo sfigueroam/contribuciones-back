@@ -9,20 +9,13 @@ const _ = require('lodash');
 module.exports.handler = async (event, context, callback) => {
 
         var rol = event.pathParameters.rol;
-        //var id= "1AWS2019071000002333-CHPV";
-        // console.log('tgr-certificado-api crearCertificado. JSON de Entrada:' , id);
         console.log("[INICIO PROCESO] Iniciando consulta a servicios");
         
         let clienteId = process.env.clientIdAmazon;
-        // let clienteId = "4i65ld3cq12ddnp2th47g359os";
         let scope = process.env.scopeAmazon;
-        // let scope = "tgr-dev-api-servicios-cut/all";
         let clientSecret = process.env.clientSecretAmazon;
-        // let clientSecret = "67gpaamp8fp5387o6gfke7op4nt11dpfll94portn907sh6fpa";
         let grantType = process.env.grantTypeAmazon;
-        // let grantType = "client_credentials";
         let host = process.env.hostnameTokenAmazon;
-        // let host = "id-dev.tegere.info";
         let token;
         
         try{
