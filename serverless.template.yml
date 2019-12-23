@@ -272,3 +272,4 @@ functions:
     hostnameAmazon: ${self:custom.apiAmazon.hostnameAmazon}
     hostnameTokenAmazon: ${self:custom.apiAmazon.hostnameTokenAmazon}
     clientSecretAmazon: ${self:custom.apiAmazon.clientSecretAmazon}
+    env: ${self:custom.apiAmazon.env}

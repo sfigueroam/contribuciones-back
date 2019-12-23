@@ -30,4 +30,5 @@ apiAmazon:
   hostnameAmazon: BUILD_WSA_HOST_API
   hostnameTokenAmazon: BUILD_WSA_HOST_TOKEN
   clientSecretAmazon: BUILD_WSA_CLIENT_SECRET
+  env: BUILD_ENV
 
