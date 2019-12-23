@@ -8,7 +8,7 @@ function obtenerDeuda( rol, token) {
             let options = {
                 hostname: process.env.hostnameAmazon ,
                 port: 443,
-                path: "/" + process.env.ENV + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol=" + rol,
+                path: "/" + process.env.env + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol=" + rol,
                 // path: "/" + "dev" + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol="+rol,
                 method: 'GET',
                 rejectUnauthorized: false,

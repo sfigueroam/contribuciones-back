@@ -1,7 +1,7 @@
 'use strict';
 const https = require('https');
 const querystring = require('querystring');
-const host = process.env.HOST_NUBE;
+const host = process.env.hostnameTokenAmazon;
 
 
 function obtenerToken(clienteId, scope, clientSecret, grantType) {
@@ -23,8 +23,8 @@ let data = {
     
 
         let options = {
-            // hostname: host,
-            hostname: "id-dev.tegere.info",
+            hostname: host,
+            // hostname: "id-dev.tegere.info",
             port: 443,
             path: '/oauth2/token',
             method: 'POST',
