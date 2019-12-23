@@ -23,4 +23,11 @@ elasticsearch:
   endpoint: BUILD_ELASTICSEARCH_URL
   maxSize: 60
   maxSizeAutoComplate: 10
+apiAmazon:
+  grantTypeAmazon: BUILD_WSA_GRANT_TYPE
+  clientIdAmazon: BUILD_WSA_CLIENT_ID
+  scopeAmazon: BUILD_WSA_SCOPE
+  hostnameAmazon: BUILD_WSA_HOST_API
+  hostnameTokenAmazon: BUILD_WSA_HOST_TOKEN
+  clientSecretAmazon: BUILD_WSA_CLIENT_SECRET
 

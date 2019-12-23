@@ -6,10 +6,10 @@ function obtenerDeuda( rol, token) {
         console.log("rol en servicioAmazon ", rol);
   
             let options = {
-                hostname: 'jx1wukpm36.execute-api.us-east-1.amazonaws.com' ,
+                hostname: process.env.hostnameAmazon ,
                 port: 443,
-                // path: "/" + process.env.env + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol="+rol,
-                path: "/" + "dev" + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol="+rol,
+                path: "/" + process.env.ENV + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol=" + rol,
+                // path: "/" + "dev" + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol="+rol,
                 method: 'GET',
                 rejectUnauthorized: false,
                 headers: {

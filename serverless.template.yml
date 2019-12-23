@@ -265,3 +265,10 @@ functions:
           path: servicios-recaudacion/v1/liquidacion/deudasrol/{rol}
           method: get
           cors: ${self:custom.cors}
+  environment:
+    grantTypeAmazon: ${self:custom.apiAmazon.grantTypeAmazon}
+    clientIdAmazon: ${self:custom.apiAmazon.clientIdAmazon}
+    scopeAmazon: ${self:custom.apiAmazon.scopeAmazon}
+    hostnameAmazon: ${self:custom.apiAmazon.hostnameAmazon}
+    hostnameTokenAmazon: ${self:custom.apiAmazon.hostnameTokenAmazon}
+    clientSecretAmazon: ${self:custom.apiAmazon.clientSecretAmazon}

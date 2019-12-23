@@ -9,7 +9,7 @@ process.env.ENV="dev";
 
 const crear = require('../obtiene-deuda');
 
-let event = {"pathParameters": {"rol":"1900102013"}}; // json entrada para buscar certificado
+let event = {"pathParameters": {"rol":"7000617052"}}; // json entrada para buscar certificado
 console.log('Inicio de funcion');
 // let event = {};
 
