@@ -29,12 +29,12 @@ phases:
 
       - sed -i "s;BUILD_ELASTICSEARCH_URL;${BUILD_ELASTICSEARCH_URL};g"           ${CODEBUILD_SRC_DIR}/config.yml
       
-      - sed -i "s;BUILD_WSA_GRANT_TYPE;${BUILD_WSA_GRANT_TYPE}:g"                 ${CODEBUILD_SRC_DIR}/config.yml
-      - sed -i "s;BUILD_WSA_CLIENT_SECRET;${BUILD_WSA_CLIENT_SECRET}:g"           ${CODEBUILD_SRC_DIR}/config.yml
-      - sed -i "s;BUILD_WSA_CLIENT_ID;${BUILD_WSA_CLIENT_ID}:g"                   ${CODEBUILD_SRC_DIR}/config.yml
-      - sed -i "s;BUILD_WSA_SCOPE;${BUILD_WSA_SCOPE}:g"                           ${CODEBUILD_SRC_DIR}/config.yml
-      - sed -i "s;BUILD_WSA_HOST_API;${BUILD_WSA_HOST_API}:g"                     ${CODEBUILD_SRC_DIR}/config.yml
-      - sed -i "s;BUILD_WSA_HOST_TOKEN;${BUILD_WSA_HOST_TOKEN}:g"                 ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WSA_GRANT_TYPE;${BUILD_WSA_GRANT_TYPE};g"                 ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WSA_CLIENT_SECRET;${BUILD_WSA_CLIENT_SECRET};g"           ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WSA_CLIENT_ID;${BUILD_WSA_CLIENT_ID};g"                   ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WSA_SCOPE;${BUILD_WSA_SCOPE};g"                           ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WSA_HOST_API;${BUILD_WSA_HOST_API};g"                     ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WSA_HOST_TOKEN;${BUILD_WSA_HOST_TOKEN};g"                 ${CODEBUILD_SRC_DIR}/config.yml
 
       - echo Installing serverless...
       - npm install -g serverless@1.46.1
