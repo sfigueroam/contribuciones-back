@@ -21,7 +21,7 @@ function obtenerDeuda( rol, token) {
 
             let respuesta = '';
             let req = https.request(options, (res) => {
-                
+                    console.log("options", options);
                     console.log('Respuesta servicio tierra statusCode:', res.statusCode);
                    
                     if( res.statusCode != 200 && res.statusCode != 201){

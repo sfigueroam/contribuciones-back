@@ -15,6 +15,7 @@ api:
   clientIdAmazon: BUILD_WSA_CLIENT_ID
   clientSecretAmazon: BUILD_WSA_CLIENT_SECRET
   grantTypeAmazon: BUILD_WSA_GRANT_TYPE
+  env: BUILD_ENV
 accessControlAllowOrigin: "*"
 cognito: BUILD_COGNITO_POOL_ARN
 apiId: BUILD_API_ID
