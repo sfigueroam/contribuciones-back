@@ -20,6 +20,7 @@ phases:
       - sed -i "s;BUILD_COGNITO_POOL_ARN;${BUILD_COGNITO_POOL_ARN};g"             ${CODEBUILD_SRC_DIR}/config.yml
       - sed -i "s;BUILD_API_ID;${BUILD_API_ID};g"                                 ${CODEBUILD_SRC_DIR}/config.yml
       - sed -i "s;BUILD_API_ROOT_ID;${BUILD_API_ROOT_ID};g"                       ${CODEBUILD_SRC_DIR}/config.yml
+      - sed -i "s;BUILD_WSA_HOST_API;${BUILD_WSA_HOST_API};g"                     ${CODEBUILD_SRC_DIR}/config.yml
 
       - sed -i "s;BUILD_RECAPTCHA_HOST;${BUILD_RECAPTCHA_HOST};g"                 ${CODEBUILD_SRC_DIR}/config.yml
       - sed -i "s;BUILD_RECAPTCHA_PATH;${BUILD_RECAPTCHA_PATH};g"                 ${CODEBUILD_SRC_DIR}/config.yml

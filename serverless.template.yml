@@ -265,3 +265,5 @@ functions:
           path: servicios-recaudacion/v1/liquidacion/deudasrol/{rol}
           method: get
           cors: ${self:custom.cors}
+    environment:
+      hostNameAmazon: ${self:custom:apiAmazon:hostNameAmazon}
