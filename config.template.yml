@@ -12,7 +12,7 @@ api:
   hostNameAmazon: BUILD_WSA_HOST_API
   hostTokenAmazon: BUILD_WSA_HOST_TOKEN
   scopeAmazon: BUILD_WSA_SCOPE
-  clienIdAmazon: BUILD_WSA_CLIENT_ID
+  clientIdAmazon: BUILD_WSA_CLIENT_ID
   clientSecretAmazon: BUILD_WSA_CLIENT_SECRET
   grantTypeAmazon: BUILD_WSA_GRANT_TYPE
 accessControlAllowOrigin: "*"
