@@ -1,4 +1,8 @@
 const https = require('https');
+// const http = require('http')
+// const token=require('./genToken');
+const hostname=process.env.hostnameAmazon;
+const env = process.env.env;
 
 function obtenerDeuda( rol, token) {
     return new Promise((resolve, reject) => {
@@ -6,9 +10,9 @@ function obtenerDeuda( rol, token) {
         console.log("rol en servicioAmazon ", rol);
   
             let options = {
-                hostname: process.env.hostnameAmazon ,
+                hostname,
                 port: 443,
-                path: "/" + process.env.env + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol=" + rol,
+                path: "/" + env + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol=" + rol,
                 // path: "/" + "dev" + "/servicios-recaudacion/v1/liquidacion/deudasrol?rol="+rol,
                 method: 'GET',
                 rejectUnauthorized: false,
