@@ -1,7 +1,7 @@
 const https = require('https');
 // const http = require('http')
 // const token=require('./genToken');
-const hostname=process.env.hostnameAmazon;
+const hostname="jx1wukpm36.execute-api.us-east-1.amazonaws.com";
 const env = process.env.env;
 
 function obtenerDeuda( rol, token) {
