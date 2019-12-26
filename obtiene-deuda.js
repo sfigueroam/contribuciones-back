@@ -21,7 +21,7 @@ module.exports.handler = async (event, context, callback) => {
         // let clientSecret = "67gpaamp8fp5387o6gfke7op4nt11dpfll94portn907sh6fpa";
         let grantType = process.env.grantTypeAmazon;
         // let grantType = "client_credentials";
-        let host = process.env.hostnameTokenAmazon;
+        // let host = process.env.hostnameTokenAmazon;
         // let host = "id-dev.tegere.info";
         let token;
         

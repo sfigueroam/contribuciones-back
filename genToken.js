@@ -1,7 +1,7 @@
 'use strict';
 const https = require('https');
 const querystring = require('querystring');
-const host = process.env.hostnameTokenAmazon;
+const host = process.env.hostTokenAmazon;
 
 
 function obtenerToken(clienteId, scope, clientSecret, grantType) {
