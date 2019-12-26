@@ -84,13 +84,6 @@ functions:
       clienteId: ${self:custom.api.clientId}
       elasticsearchUrl: ${self:custom.elasticsearch.endpoint}
       maxSize: ${self:custom.elasticsearch.maxSize}
-      grantTypeAmazon: ${self:custom.apiAmazon.grantTypeAmazon}
-      clientIdAmazon: ${self:custom.apiAmazon.clientIdAmazon}
-      scopeAmazon: ${self:custom.apiAmazon.scopeAmazon}
-      hostnameAmazon: ${self:custom.apiAmazon.hostnameAmazon}
-      hostnameTokenAmazon: ${self:custom.apiAmazon.hostnameTokenAmazon}
-      clientSecretAmazon: ${self:custom.apiAmazon.clientSecretAmazon}
-      env: ${self:custom.apiAmazon.env}
 
   recaptcha2:
     name: tgr-${self:custom.stage}-contribuciones-recaptcha2
@@ -272,4 +265,3 @@ functions:
           path: servicios-recaudacion/v1/liquidacion/deudasrol/{rol}
           method: get
           cors: ${self:custom.cors}
-

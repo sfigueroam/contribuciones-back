@@ -2,14 +2,6 @@ region: us-east-1
 stage: BUILD_ENV
 role: BUILD_LAMBDA_ROLE_ARN
 bucket: BUILD_BUCKET_TOKENS
-apiAmazon:
-  hostnameAmazon: BUILD_WSA_HOST_API
-  hostnameTokenAmazon: BUILD_WSA_HOST_TOKEN
-  clientSecretAmazon: BUILD_WSA_CLIENT_SECRET
-  env: BUILD_ENV
-  grantTypeAmazon: BUILD_WSA_GRANT_TYPE
-  clientIdAmazon: BUILD_WSA_CLIENT_ID
-  scopeAmazon: BUILD_WSA_SCOPE
 api:
   grantType: BUILD_WST_GRANT_TYPE
   clientSecret: BUILD_WST_CLIENT_SECRET
@@ -31,3 +23,4 @@ elasticsearch:
   endpoint: BUILD_ELASTICSEARCH_URL
   maxSize: 60
   maxSizeAutoComplate: 10
+
