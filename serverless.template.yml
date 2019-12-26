@@ -272,3 +272,4 @@ functions:
       clientIdAmazon: ${self:custom.api.clientIdAmazon}
       clientSecretAmazon: ${self:custom.api.clientSecretAmazon}
       grantTypeAmazon: ${self:custom.api.grantTypeAmazon}
+      env: ${self:custom.api.env}
