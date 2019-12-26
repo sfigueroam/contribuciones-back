@@ -267,3 +267,8 @@ functions:
           cors: ${self:custom.cors}
     environment:
       hostNameAmazon: ${self:custom.api.hostNameAmazon}
+      hostTokenAmazon: ${self:custom.api.hostTokenAmazon}
+      scopeAmazon: ${self:custom.api.scopeAmazon}
+      clienIdAmazon: ${self:custom.api.clienIdAmazon}
+      clientSecretAmazon: ${self:custom.api.clientSecretAmazon}
+      grantTypeAmazon: ${self:custom.api.grantTypeAmazon}
