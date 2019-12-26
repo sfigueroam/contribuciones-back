@@ -266,4 +266,4 @@ functions:
           method: get
           cors: ${self:custom.cors}
     environment:
-      hostNameAmazon: ${self:custom:apiAmazon:hostNameAmazon}
+      hostNameAmazon: ${self:custom.api.hostNameAmazon}

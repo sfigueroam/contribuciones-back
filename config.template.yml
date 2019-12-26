@@ -9,7 +9,6 @@ api:
   scope: BUILD_WST_SCOPE
   hostname: BUILD_WST_HOST
   port: BUILD_WST_PORT
-apiAmazon:
   hostNameAmazon: BUILD_WSA_HOST_API
 accessControlAllowOrigin: "*"
 cognito: BUILD_COGNITO_POOL_ARN
