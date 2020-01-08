@@ -6,7 +6,7 @@ custom: ${file(./config.yml)}
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs10.x
   region: ${self:custom.region}
   stage: ${self:custom.stage}
   role: ${self:custom.role}
