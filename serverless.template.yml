@@ -273,3 +273,24 @@ functions:
       clientSecretAmazon: ${self:custom.api.clientSecretAmazon}
       grantTypeAmazon: ${self:custom.api.grantTypeAmazon}
       env: ${self:custom.api.env}
+      
+  multiAR:
+    name: tgr-${self:custom.stage}-contribuciones-multiAR
+    handler: multiAR.handler
+    events:
+      - http:
+          path: servicios-recaudacion/v1/liquidacion/ingresamultiar
+          method: post
+          cors: ${self:custom.cors}
+          request:
+            parameters:
+              paths:
+                tipo: true
+    environment:
+      hostNameAmazon: ${self:custom.api.hostNameAmazon}
+      hostTokenAmazon: ${self:custom.api.hostTokenAmazon}
+      scopeAmazon: ${self:custom.api.scopeAmazon}
+      clientIdAmazon: ${self:custom.api.clientIdAmazon}
+      clientSecretAmazon: ${self:custom.api.clientSecretAmazon}
+      grantTypeAmazon: ${self:custom.api.grantTypeAmazon}
+      env: ${self:custom.api.env}
