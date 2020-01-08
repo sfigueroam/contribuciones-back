@@ -4,7 +4,7 @@
 // AWS.config.update({ region: "us-east-1"});
 const servAmazon = require('./serviciosAmazon');
 const genToken = require('./genToken');
-const _ = require('lodash');
+// const _ = require('lodash');
 
 module.exports.handler = async (event, context, callback) => {
 
