@@ -69,11 +69,12 @@ function multiAR(body, token) {
                     'Authorization': 'Bearer ' + token
                 },
                 body: body
+                console.log("body2", body):
             };
 
             let respuesta = '';
             let req = https.request(options, (res) => {
-                    console.log("options", options);
+                    console.log("options2", options);
                     console.log('Respuesta servicio tierra statusCode:', res.statusCode);
                    
                     if( res.statusCode != 200 && res.statusCode != 201){
