@@ -55,7 +55,8 @@ function multiAR(body, token) {
     return new Promise((resolve, reject) => {
 
         console.log("rmultiAr en Amazon ", body);
-  
+            let bodystring = JSON.stringify(body)
+            console.log("bodystring", bodystring);
             let options = {
                 // hostname: 'jx1wukpm36.execute-api.us-east-1.amazonaws.com' ,
                 hostname: process.env.hostNameAmazon ,
@@ -68,8 +69,8 @@ function multiAR(body, token) {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 },
-                body: body
-                console.log("body2", body):
+                body: bodystring
+                // console.log("body2", body):
             };
 
             let respuesta = '';
