@@ -80,7 +80,7 @@ function multiAR(body, token) {
                    
                     if( res.statusCode != 200 && res.statusCode != 201){
                         console.log("Error al tratar de consumir el servicio tierra");
-                        // return("Por el momento no podemos atender su consulta");
+                        return("Por el momento no podemos atender su consulta");
                     }
                   
                 res.on('data', (d) => {
