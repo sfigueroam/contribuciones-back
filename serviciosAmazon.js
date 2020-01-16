@@ -46,7 +46,7 @@ function obtenerDeuda( rol, token) {
             req.end();
         })
         .catch((error) => {
-            console.log(error, 'Error en promesa validarCliente');
+            console.log(error, 'Error en promesa BuscarDeuda');
         });
 }
 exports.obtenerDeuda = obtenerDeuda;
@@ -79,8 +79,8 @@ function multiAR(body, token) {
                     console.log('Respuesta servicio tierra statusCode:', res.statusCode);
                    
                     if( res.statusCode != 200 && res.statusCode != 201){
-                        console.log("Error en Servicio: Error en Parametros de Entrada: Monto Total no Cuadra con suma de montos de los ARs Individuales");
-                        return("Error en Servicio: Error en Parametros de Entrada: Monto Total no Cuadra con suma de montos de los ARs Individuales");
+                        console.log("Error al tratar de consumir el servicio tierra");
+                        return("Por el momento no podemos atender su consulta");
                     }
                   
                 res.on('data', (d) => {
@@ -99,7 +99,7 @@ function multiAR(body, token) {
             req.end();
         })
         .catch((error) => {
-            console.log(error, 'Error en promesa validarCliente');
+            console.log(error, 'Error en promesa calcular CidUnico');
         });
 }
 exports.multiAR = multiAR;
