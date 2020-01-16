@@ -12,7 +12,7 @@ module.exports.handler = async (event, context, callback) => {
         // console.log('tgr-certificado-api crearCertificado. JSON de Entrada:' , id);
         console.log("[INICIO PROCESO] Iniciando consulta a servicios");
         
-        console.log("listaCid", body.listaCid);
+        console.log("listaCid", body);
 
         // listaCid = JSON.stringify(listaCid);
         
@@ -35,6 +35,7 @@ module.exports.handler = async (event, context, callback) => {
         out["requestId"] = salida;
         
         console.log("salida consutla deuda:", salida);
+        
         
         console.log("[FIN PROCESO]");
 
