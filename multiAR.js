@@ -16,19 +16,19 @@ module.exports.handler = async (event, context, callback) => {
 
         // listaCid = JSON.stringify(listaCid);
         
-        let clienteId = process.env.clientIdAmazon;
+        // let clienteId = process.env.clientIdAmazon;
         let scope = process.env.scopeAmazon;
-        let clientSecret = process.env.clientSecretAmazon;
-        let grantType = process.env.grantTypeAmazon;
+        // let clientSecret = process.env.clientSecretAmazon;
+        // let grantType = process.env.grantTypeAmazon;
         let token = obtieneDeuda.token;
         
-        try{
-            token = await genToken.obtenerToken(clienteId,scope,clientSecret,grantType);
-            console.log("tokenGenerico calculado");
-            console.log("token",token);
-        } catch(err){
-            console.log('Error al generar token nube', err);
-        }
+        // try{
+        //     token = await genToken.obtenerToken(clienteId,scope,clientSecret,grantType);
+        //     console.log("tokenGenerico calculado");
+        //     console.log("token",token);
+        // } catch(err){
+        //     console.log('Error al generar token nube', err);
+        // }
         
         let salida = await servAmazon.multiAR(body, token);
         let out= {};
