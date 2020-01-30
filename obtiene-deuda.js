@@ -23,7 +23,7 @@ module.exports.handler = async (event, context, callback) => {
         // let grantType = "client_credentials";
         // let host = process.env.hostnameTokenAmazon;
         // let host = "id-dev.tegere.info";
-        var token;
+        let token;
         
         try{
             token = await genToken.obtenerToken(clienteId,scope,clientSecret,grantType);
