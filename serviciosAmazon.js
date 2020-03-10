@@ -62,7 +62,6 @@ function multiAR(body, token) {
                 hostname: process.env.hostNameAmazon ,
                 port: 443,
                 path: "/api-servicios-cut/" + process.env.env + "/servicios-recaudacion/v1/liquidacion/ingresamultiar",
-                // path: "/" + 'dev' + "/servicios-recaudacion/v1/liquidacion/ingresamultiar",
                 method: 'POST',
                 rejectUnauthorized: false,
                 headers: {
