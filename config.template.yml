@@ -1,5 +1,8 @@
 region: us-east-1
 stage: BUILD_ENV
+#SFM 01042020 (I) Para funcion que obtiene Roles con Beneficio por Covid19
+env: BUILD_ENV
+#SFM 01042020 (F) Para funcion que obtiene Roles con Beneficio por Covid19
 role: BUILD_LAMBDA_ROLE_ARN
 bucket: BUILD_BUCKET_TOKENS
 api:

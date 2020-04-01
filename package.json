@@ -9,11 +9,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lodash": "^4.17.11",
-    "aws-sdk": "^2.337.0",
-    "dotenv": "^6.1.0"
+    "aws-sdk": "^2.651.0",
+    "dotenv": "^6.1.0",
+    "lodash": "^4.17.15"
   },
   "dependencies": {
-    "mutex-promise": "^0.1.0"
+    "mutex-promise": "^0.1.0",
+    "express": "^4.17.1",
+    "moment": "^2.24.0"
   }
 }

@@ -294,3 +294,23 @@ functions:
       clientSecretAmazon: ${self:custom.api.clientSecretAmazon}
       grantTypeAmazon: ${self:custom.api.grantTypeAmazon}
       env: ${self:custom.api.env}
+
+  #SFM 01042020 (I) Para funcion que obtiene Roles con Beneficio por Covid19
+  getRolesBeneficioCovid19:
+    name: tgr-${self:custom.env}-${self:service}-getRolesBeneficioCovid19
+    handler: getRolesBeneficioCovid19.handler
+    timeout: 30
+    events:
+      - http:
+          path: roles/covid19
+          method: get
+          #cors: true
+          request:
+            parameters:
+              querystrings:
+                rol: true
+          authorizer:
+            arn: ${self:custom.cognito}
+            scopes:
+              - op3/certificado-pago
+  #SFM 01042020 (F) Para funcion que obtiene Roles con Beneficio por Covid19
