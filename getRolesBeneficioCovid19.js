@@ -85,11 +85,13 @@ async function doit(values, callback) {
     }
     //resumenCompleto = resumen.Items;
     //resumenCompleto.pagos = replace_Elements(resumenCompleto.pagos);
-    
+    let data = {
+        "existeRol" : existeRol
+    }
     const response = {
         statusCode: 200,
         //body: JSON.stringify(resumen.Count),
-        body: JSON.stringify(existeRol),
+        body: JSON.stringify(data),
         headers: {
             "Access-Control-Allow-Origin": "*", // Required for CORS support to work
             "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS

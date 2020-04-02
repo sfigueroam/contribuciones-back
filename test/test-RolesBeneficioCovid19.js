@@ -5,7 +5,7 @@ process.env.ENV = "dev";
     let inicio = Date.now();
     let event = { 
         queryStringParameters: {
-            rol: "252648011"
+            rol: "166115450"
         }
     };
         

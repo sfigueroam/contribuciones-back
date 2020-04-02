@@ -303,7 +303,7 @@ functions:
     timeout: 30
     events:
       - http:
-          path: roles/covid19
+          path: servicios-recaudacion/v1/contingencia/contribuciones/{rol}
           method: get
           #cors: true
           cors: ${self:custom.cors}
