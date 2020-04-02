@@ -297,8 +297,8 @@ functions:
 
   #SFM 01042020 (I) Para funcion que obtiene Roles con Beneficio por Covid19
   getRolesBeneficioCovid19:
-    ·name: tgr-${self:custom.env}-${self:service}-getRolesBeneficioCovid19
-    name: tgr-${self:custom.env}-getRolesBeneficioCovid19
+    #name: tgr-${self:custom.env}-${self:service}-getRolesBeneficioCovid19
+    name: tgr-${self:custom.stage}-getRolesBeneficioCovid19
     handler: getRolesBeneficioCovid19.handler
     timeout: 30
     events:
@@ -306,6 +306,7 @@ functions:
           path: roles/covid19
           method: get
           #cors: true
+          cors: ${self:custom.cors}
           request:
             parameters:
               querystrings:
