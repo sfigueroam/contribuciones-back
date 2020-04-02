@@ -134,7 +134,6 @@ async function doit(values, callback) {
     }else{
         existeRol = "NO";
     }
-
     //resumenCompleto = resumen.Items;
     //resumenCompleto.pagos = replace_Elements(resumenCompleto.pagos);
     
