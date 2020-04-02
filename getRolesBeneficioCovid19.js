@@ -24,11 +24,6 @@ const params = {
     }
 };
 
-// const conceptoMap = new Map();
-// conceptoMap.set('PAGO_PROVEEDORES', 'PAGO PROVEEDORES DEL ESTADO');
-// conceptoMap.set('FINANCIAMIENTO_PUBLICO_ELECTORAL', 'FINANCIAMIENTO PUBLICO ELECTORAL');
-// conceptoMap.set('RENTA_ANTICIPADA', 'RENTA ANTICIPADA');
-
 function validateFormat(event) {
     let queryStringParameters = _.assign({}, event.queryStringParameters);
 
@@ -60,18 +55,11 @@ function validateFormat(event) {
 }
 
 async function doit(values, callback) {
-    // let rut = values.rut;
-    // let mes = _.padStart(values.mes, 2, '0');
-    // let anio= values.anio;
     let rol = values.rol;
-    
     let resumenCompleto= {};
-    //let fechaPagoIni = anio+"-"+mes+"-01T00:00:00";
-    //let fechaPagoFin = anio+"-"+mes+"-31T23:59:59";
     let ini1 = null;
     let ini2 = null;
     let existeRol = 0;
-    
     
     //1.- traer resumen
     var params = {
@@ -79,47 +67,8 @@ async function doit(values, callback) {
         //IndexName: `tgr-${process.env.ENV}-core-ordenes-pago-rut-fechaPago-idx`,
         //KeyConditionExpression: "rol = :rol and fechaPago between :fechaPagoIni and :fechaPagoFin",
         KeyConditionExpression: "rol = :rol",
-        // FilterExpression: 'begins_with(estado,:ini1) or begins_with(estado,:ini2) ',
-        // ExpressionAttributeValues: {
-        //     ":rut": Number(rut),
-        //     ":fechaPagoIni": fechaPagoIni,
-        //     ":fechaPagoFin": fechaPagoFin,
-        //     ":ini1": ini1,
-        //     ":ini2": ini2,
-        // },
         ScanIndexForward: false //descendente
     };
-    
-    // if(estado=="CONFIRMADO"){
-    //     ini1 = "C";
-    //     params.ExpressionAttributeValues = {
-    //         ":rut": Number(rut),
-    //         ":fechaPagoIni": fechaPagoIni,
-    //         ":fechaPagoFin": fechaPagoFin,
-    //         ":ini1": ini1
-    //     };
-    //     params.FilterExpression = 'begins_with(estado,:ini1) ';
-    // }else if(estado=="PENDIENTE"){
-    //     ini1 = "P";
-    //     params.ExpressionAttributeValues = {
-    //         ":rut": Number(rut),
-    //         ":fechaPagoIni": fechaPagoIni,
-    //         ":fechaPagoFin": fechaPagoFin,
-    //         ":ini1": ini1
-    //     };
-    //     params.FilterExpression = 'begins_with(estado,:ini1) ';
-    // }else{
-    //     ini1 = "C";
-    //     ini2 = "P";
-    //     params.ExpressionAttributeValues = {
-    //         ":rut": Number(rut),
-    //         ":fechaPagoIni": fechaPagoIni,
-    //         ":fechaPagoFin": fechaPagoFin,
-    //         ":ini1": ini1,
-    //         ":ini2": ini2
-    //     };
-    //     params.FilterExpression = 'begins_with(estado,:ini1) or begins_with(estado,:ini2) ';
-    // }
     
     params.ExpressionAttributeValues = {
         ":rol": rol
@@ -183,17 +132,3 @@ function response(code, resultado, callback) {
     console.log('response', response);
     callback(null, response);
 }
-
-// function replace_Elements(obj) {
-//     for (var prop in obj) {
-//         if (typeof obj[prop] === 'object') { // dive deeper in
-//             replace_Elements(obj[prop]);
-//         }
-//         else if (prop == "concepto") { // delete elements that are empty strings
-//             let concepto = conceptoMap.get(obj[prop]);
-
-//             obj[prop+"Vista"] = concepto;
-//         }
-//     }
-//     return obj;
-// }
