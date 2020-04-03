@@ -3,15 +3,16 @@ process.env.ENV = "dev";
 (async () => {
     
     let inicio = Date.now();
-    let event = { 
-        queryStringParameters: {
-            rol: "166115450"
-        }
-    };
-        
+    // let event = { 
+    //     queryStringParameters: {
+    //         rol: "166115450"
+    //     }
+    // };
+    let event = {"pathParameters": {"rol":"1900102013"}}; // json entrada para buscar certificado        
+    
     await consulta.handler(event).then((response)=>{
        console.log('CallBack Respuesta=>' + JSON.stringify(response)); 
        console.log( (Date.now() - inicio) + ' Milliseconds');
     });
-    
+
 })();

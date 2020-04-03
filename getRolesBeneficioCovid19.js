@@ -25,7 +25,8 @@ const params = {
 };
 
 function validateFormat(event) {
-    let queryStringParameters = _.assign({}, event.queryStringParameters);
+    //let queryStringParameters = _.assign({}, event.queryStringParameters);
+    let queryStringParameters = _.assign({}, event.pathParameters);
 
     let errors = [];
     let values = _.mapValues(params, (paramValue, paramName) => {
