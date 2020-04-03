@@ -307,12 +307,20 @@ functions:
           method: get
           #cors: true
           cors: ${self:custom.cors}
-          request:
-            parameters:
-              querystrings:
-                rol: true
-          authorizer:
-            arn: ${self:custom.cognito}
+          #request:
+            #parameters:
+              #querystrings:
+                #rol: true
+          #authorizer:
+            #arn: ${self:custom.cognito}
             #scopes:
               #- op3/certificado-pago
+    environment:
+      hostNameAmazon: ${self:custom.api.hostNameAmazon}
+      hostTokenAmazon: ${self:custom.api.hostTokenAmazon}
+      scopeAmazon: ${self:custom.api.scopeAmazon}
+      clientIdAmazon: ${self:custom.api.clientIdAmazon}
+      clientSecretAmazon: ${self:custom.api.clientSecretAmazon}
+      grantTypeAmazon: ${self:custom.api.grantTypeAmazon}
+      env: ${self:custom.api.env} 
   #SFM 01042020 (F) Para funcion que obtiene Roles con Beneficio por Covid19
