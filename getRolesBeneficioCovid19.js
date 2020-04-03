@@ -64,22 +64,13 @@ async function doit(values, callback) {
     
     //1.- traer resumen
     var params = {
-        TableName: `tgr-${process.env.ENV}-contribuciones-roles-covid19`,
+        TableName: `tgr-${process.env.env}-contribuciones-roles-covid19`,
         //IndexName: `tgr-${process.env.ENV}-core-ordenes-pago-rut-fechaPago-idx`,
         //KeyConditionExpression: "rol = :rol and fechaPago between :fechaPagoIni and :fechaPagoFin",
         KeyConditionExpression: "rol = :rol",
         ScanIndexForward: false //descendente
     };
-    console.log("1 process.env.Env: ")
-    console.log(process.env.Env)
-    console.log("2 process.env.env: ")
-    console.log(process.env.env)
-    console.log("3 process.env.ENV: ")
-    console.log(process.env.ENV)
-    console.log("4 process.env: ")
-    console.log(process.env)
-    console.log("5 params:")
-    console.log(params)
+
     params.ExpressionAttributeValues = {
         ":rol": rol
     };
