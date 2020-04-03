@@ -70,7 +70,11 @@ async function doit(values, callback) {
         KeyConditionExpression: "rol = :rol",
         ScanIndexForward: false //descendente
     };
-    
+    console.log("aa")
+    console.log(process.env.Env)
+    console.log("bb")
+    console.log(process.env.ENV)
+    console.log(params)
     params.ExpressionAttributeValues = {
         ":rol": rol
     };

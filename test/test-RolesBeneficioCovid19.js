@@ -8,7 +8,7 @@ process.env.ENV = "dev";
     //         rol: "166115450"
     //     }
     // };
-    let event = {"pathParameters": {"rol":"1900102013"}}; // json entrada para buscar certificado        
+    let event = {"pathParameters": {"rol":"166115450"}}; // json entrada para buscar certificado        
     
     await consulta.handler(event).then((response)=>{
        console.log('CallBack Respuesta=>' + JSON.stringify(response)); 
