@@ -40,7 +40,6 @@ phases:
       - echo Installing source NPM dependencies...
       - npm install
 
-
   build:
     commands:
       - serverless deploy --stage ${BUILD_ENV}
