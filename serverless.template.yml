@@ -313,6 +313,6 @@ functions:
                 rol: true
           authorizer:
             arn: ${self:custom.cognito}
-            scopes:
-              - op3/certificado-pago
+            #scopes:
+              #- op3/certificado-pago
   #SFM 01042020 (F) Para funcion que obtiene Roles con Beneficio por Covid19
