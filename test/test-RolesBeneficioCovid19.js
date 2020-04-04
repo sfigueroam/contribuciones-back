@@ -1,5 +1,5 @@
 const consulta = require("../getRolesBeneficioCovid19");
-process.env.ENV = "dev";
+process.env.env = "dev";
 (async () => {
     
     let inicio = Date.now();
@@ -8,10 +8,10 @@ process.env.ENV = "dev";
     //         rol: "166115450"
     //     }
     // };
-    let event = {"pathParameters": {"rol":"166115450"}}; // json entrada para buscar certificado        
+    let event = {"pathParameters": {"rol":"34607482003"}}; // json entrada para buscar certificado        
     
     await consulta.handler(event).then((response)=>{
-       console.log('CallBack Respuesta=>' + JSON.stringify(response)); 
+       console.log('CallBack Respuesta=>' + response); 
        console.log( (Date.now() - inicio) + ' Milliseconds');
     });
 

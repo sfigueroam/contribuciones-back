@@ -1,5 +1,9 @@
 const https = require('https');
 
+if(process.env.env == 'stag'){
+    process.env.env = 'prod'
+}
+
 function obtenerDeuda( rol, token) {
     return new Promise((resolve, reject) => {
 

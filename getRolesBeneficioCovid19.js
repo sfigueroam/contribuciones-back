@@ -27,7 +27,7 @@ const params = {
 function validateFormat(event) {
     //let queryStringParameters = _.assign({}, event.queryStringParameters);
     let queryStringParameters = _.assign({}, event.pathParameters);
-
+    console.log('parametros recibidos', queryStringParameters);
     let errors = [];
     let values = _.mapValues(params, (paramValue, paramName) => {
         let res;
@@ -56,6 +56,7 @@ function validateFormat(event) {
 }
 
 async function doit(values, callback) {
+    console.log(values);
     let rol = values.rol;
     let resumenCompleto= {};
     let ini1 = null;
@@ -70,13 +71,14 @@ async function doit(values, callback) {
         KeyConditionExpression: "rol = :rol",
         ScanIndexForward: false //descendente
     };
+    console.log('parametros con nombre dela tabla', params);
 
     params.ExpressionAttributeValues = {
         ":rol": rol
     };
         
     var resumen = await dynamo.query(params);
-    
+    console.log('resumen consulta dynamo', resumen)
     //resumenCompleto = resumen.Count;
     
     if(resumen.Count > 0){
@@ -89,19 +91,19 @@ async function doit(values, callback) {
     let data = {
         "existeRol" : existeRol
     }
-    const response = {
-        statusCode: 200,
-        //body: JSON.stringify(resumen.Count),
-        body: JSON.stringify(data),
-        headers: {
-            "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-            "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        }
-    };
+    // const response = {
+    //     statusCode: 200,
+    //     //body: JSON.stringify(resumen.Count),
+    //     body: JSON.stringify(data),
+    //     headers: {
+    //         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+    //         "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+    //         'Accept': 'application/json, text/plain, */*',
+    //         'Content-Type': 'application/json'
+    //     }
+    // };
     
-    return response;
+    return response(200,data,callback);
 }
 
 
@@ -133,5 +135,5 @@ function response(code, resultado, callback) {
     };
 
     console.log('response', response);
-    callback(null, response);
+    //callback(null, response);
 }
