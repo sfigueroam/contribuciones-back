@@ -119,6 +119,7 @@ module.exports.handler = async (event, context, callback) => {
     }
 
     return doit(values, callback);
+   
     
 };
 
@@ -135,5 +136,5 @@ function response(code, resultado, callback) {
     };
 
     console.log('response', response);
-    //callback(null, response);
+    callback(null, response);
 }
