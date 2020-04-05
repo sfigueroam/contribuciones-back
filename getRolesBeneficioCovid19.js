@@ -65,17 +65,17 @@ async function doit(values, callback) {
     let cerosFaltantes = 0;
     var cero = "0";
     
-    cerosFaltantes = 11 - values.rol.length;
+    cerosFaltantes = 11 - rol.length;
     
-    console.log('values.rol: ', values.rol)
-    console.log('largo values.rol: ', values.rol.length)
+    console.log('rol: ', rol)
+    console.log('largo rol: ', rol.length)
     console.log('cerosFaltantes: ', cerosFaltantes)
-    if (values.rol.length < 11) {
+    if (rol.length < 11) {
         for (var i = 0; i < cerosFaltantes; i++) {
-           values.rol = cero.concat(values.rol);
+           rol = cero.concat(rol);
         }
     }
-    console.log('nuevo values.rol con 11 digitos: ', values.rol)
+    console.log('nuevo rol con 11 digitos: ', rol)
     //1.- traer resumen
     var params = {
         TableName: `tgr-${process.env.env}-contribuciones-roles-covid19`,
@@ -115,7 +115,7 @@ async function doit(values, callback) {
     //         'Content-Type': 'application/json'
     //     }
     // };
-    
+    console.log("existeRol: ", existeRol)
     return response(200,data,callback);
 }
 
