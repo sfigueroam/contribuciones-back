@@ -62,7 +62,20 @@ async function doit(values, callback) {
     let ini1 = null;
     let ini2 = null;
     let existeRol = 0;
+    let cerosFaltantes = 0;
+    var cero = "0";
     
+    cerosFaltantes = 11 - values.rol.length;
+    
+    console.log('values.rol: ', values.rol)
+    console.log('largo values.rol: ', values.rol.length)
+    console.log('cerosFaltantes: ', cerosFaltantes)
+    if (values.rol.length < 11) {
+        for (var i = 0; i < cerosFaltantes; i++) {
+           values.rol = cero.concat(values.rol);
+        }
+    }
+    console.log('nuevo values.rol con 11 digitos: ', values.rol)
     //1.- traer resumen
     var params = {
         TableName: `tgr-${process.env.env}-contribuciones-roles-covid19`,
