@@ -156,7 +156,7 @@ function response(code, resultado, callback) {
             'Content-Type': 'application/json'
         }
     };
-    console.log(JSON.stringify(resultado));
+    //console.log(JSON.stringify(resultado));
     console.log('response', response);
     callback(null, response);
 }
