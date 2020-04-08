@@ -64,7 +64,8 @@ async function doit(values, callback) {
     let existeRol = 0;
     let cerosFaltantes = 0;
     var cero = "0";
-    let porcentajeBeneficio = 0;
+    var beneficios ="NO";
+    //let porcentajeBeneficio = 0;
     
     cerosFaltantes = 11 - rol.length;
     
@@ -77,9 +78,11 @@ async function doit(values, callback) {
         }
     }
     console.log('nuevo rol con 11 digitos: ', rol)
+    
+    //tgr-dev-contribuciones-roles-beneficios
     //1.- traer resumen
     var params = {
-        TableName: `tgr-${process.env.env}-contribuciones-roles-covid19`,
+        TableName: `tgr-${process.env.env}-contribuciones-roles-beneficios`,
         //IndexName: `tgr-${process.env.ENV}-core-ordenes-pago-rut-fechaPago-idx`,
         //KeyConditionExpression: "rol = :rol and fechaPago between :fechaPagoIni and :fechaPagoFin",
         KeyConditionExpression: "rol = :rol",
@@ -92,22 +95,25 @@ async function doit(values, callback) {
     };
         
     var resumen = await dynamo.query(params);
-    console.log('resumen consulta dynamo', resumen)
+    console.log('resumen consulta dynamo', resumen.Items)
     //resumenCompleto = resumen.Count;
     
     if(resumen.Count > 0){
         existeRol = "SI";
-        porcentajeBeneficio = "100";
+        //porcentajeBeneficio = "100";
     }else{
         existeRol = "NO";
-        porcentajeBeneficio = "0";
+        //porcentajeBeneficio = "0";
     }
-    
+    console.log("resumen.Items.count: ", resumen.Items.length);
     //resumenCompleto = resumen.Items;
     //resumenCompleto.pagos = replace_Elements(resumenCompleto.pagos);
+    if (resumen.Items.length > 0){
+        beneficios = resumen.Items;
+    }
     let data = {
         "existeRol" : existeRol,
-        "porcentajeBeneficio" : porcentajeBeneficio
+        "beneficios" : beneficios
     }
     // const response = {
     //     statusCode: 200,

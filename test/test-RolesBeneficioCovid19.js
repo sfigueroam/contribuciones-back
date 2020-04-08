@@ -8,7 +8,7 @@ process.env.env = "dev";
     //         rol: "166115450"
     //     }
     // };
-    let event = {"pathParameters": {"rol":"9506254070"}}; // json entrada para buscar certificado        
+    let event = {"pathParameters": {"rol":"345678913"}}; // json entrada para buscar certificado        
     
   consulta.handler(event, null, ()=>{ console.log("fin")});
 })();
