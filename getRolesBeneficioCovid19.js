@@ -100,10 +100,8 @@ async function doit(values, callback) {
     
     if(resumen.Count > 0){
         existeRol = "SI";
-        //porcentajeBeneficio = "100";
     }else{
         existeRol = "NO";
-        //porcentajeBeneficio = "0";
     }
     console.log("resumen.Items.count: ", resumen.Items.length);
     //resumenCompleto = resumen.Items;
