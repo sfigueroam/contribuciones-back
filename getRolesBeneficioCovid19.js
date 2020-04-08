@@ -88,7 +88,7 @@ async function doit(values, callback) {
         KeyConditionExpression: "rol = :rol",
         ScanIndexForward: false //descendente
     };
-    console.log('parametros con nombre dela tabla', params);
+   // console.log('parametros con nombre dela tabla', params);
 
     params.ExpressionAttributeValues = {
         ":rol": rol
