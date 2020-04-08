@@ -64,6 +64,7 @@ async function doit(values, callback) {
     let existeRol = 0;
     let cerosFaltantes = 0;
     var cero = "0";
+    let porcentajeBeneficio = 0;
     
     cerosFaltantes = 11 - rol.length;
     
@@ -96,13 +97,17 @@ async function doit(values, callback) {
     
     if(resumen.Count > 0){
         existeRol = "SI";
+        porcentajeBeneficio = "100";
     }else{
         existeRol = "NO";
+        porcentajeBeneficio = "0";
     }
+    
     //resumenCompleto = resumen.Items;
     //resumenCompleto.pagos = replace_Elements(resumenCompleto.pagos);
     let data = {
-        "existeRol" : existeRol
+        "existeRol" : existeRol,
+        "porcentajeBeneficio" : porcentajeBeneficio
     }
     // const response = {
     //     statusCode: 200,
@@ -147,7 +152,7 @@ function response(code, resultado, callback) {
             'Content-Type': 'application/json'
         }
     };
-
+    console.log(JSON.stringify(resultado));
     console.log('response', response);
     callback(null, response);
 }
