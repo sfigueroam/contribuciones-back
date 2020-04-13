@@ -63,15 +63,13 @@ async function doit(values, callback) {
     let ini2 = null;
     let existeRol = 0;
     let cerosFaltantes = 0;
-    var cero = "0";
-    var beneficios ="NO";
+    let cero = "0";
+    let beneficios ="NO";
     //let porcentajeBeneficio = 0;
     
     cerosFaltantes = 11 - rol.length;
     
-    console.log('rol: ', rol)
-    console.log('largo rol: ', rol.length)
-    console.log('cerosFaltantes: ', cerosFaltantes)
+
     if (rol.length < 11) {
         for (var i = 0; i < cerosFaltantes; i++) {
            rol = cero.concat(rol);
@@ -94,20 +92,25 @@ async function doit(values, callback) {
     };
         
     var resumen = await dynamo.query(params);
-    console.log('resumen consulta dynamo', resumen.Items)
+    console.log('resumen consulta dynamo resumen.Items', resumen.Items)
     //resumenCompleto = resumen.Count;
     
-    if(resumen.Count > 0){
+    if(resumen.Count > 0)
         existeRol = "SI";
-    }else{
+    else
         existeRol = "NO";
+    
+    console.log("resumen.Items.length: ", resumen.Items.length);
+
+    //Se elimina 0s a la izquierda en campo porcentaje, solo en caso de ser > 0
+    for (var i = 0; i < resumen.Items.length; i++){
+        if (resumen.Items[i].porcentaje > 0)
+            resumen.Items[i].porcentaje = resumen.Items[i].porcentaje.replace(/^0+/, '');
     }
-    console.log("resumen.Items.count: ", resumen.Items.length);
-    //resumenCompleto = resumen.Items;
-    //resumenCompleto.pagos = replace_Elements(resumenCompleto.pagos);
-    if (resumen.Items.length > 0){
+
+    if (resumen.Items.length > 0)
         beneficios = resumen.Items;
-    }
+    
     let data = {
         "existeRol" : existeRol,
         "beneficios" : beneficios
@@ -123,13 +126,11 @@ async function doit(values, callback) {
     //         'Content-Type': 'application/json'
     //     }
     // };
-    console.log("existeRol: ", existeRol)
     return response(200,data,callback);
 }
 
 
 module.exports.handler = async (event, context, callback) => {
-    console.log('Entree');
     logger.log('call', event);
 
     let {errors, values} = validateFormat(event);
@@ -156,6 +157,6 @@ function response(code, resultado, callback) {
         }
     };
     //console.log(JSON.stringify(resultado));
-    console.log('response', response);
+    console.log('response: ', response);
     callback(null, response);
 }

@@ -9,7 +9,6 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports = {
-
     // getItem: function(params) {
 
     //     return new Promise((resolve, reject) => {
@@ -33,7 +32,6 @@ module.exports = {
                     console.log("dynamodb query error:", JSON.stringify(err, null, 2), err.stack);
                     reject(err);
                 } else {
-                    console.log("Entre a dynamodbServices, data: ", data)
                     resolve(data)
                 }
             });
